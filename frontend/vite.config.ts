@@ -9,6 +9,8 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    // Cursor Cloud / forwarded dev URLs use dynamic *.cursorvm.com hostnames
+    allowedHosts: ['.cursorvm.com', 'localhost', '127.0.0.1'],
     proxy: {
       '/api': {
         target: 'http://localhost:3001',
