@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
@@ -27,11 +29,11 @@ export default function Footer() {
         <div>
           <h4 className="mb-3 text-sm font-semibold text-white">Resources</h4>
           <ul className="space-y-2 text-sm text-slate-400">
-            <li>Acts &amp; Rules</li>
-            <li>Guidelines &amp; FAQs</li>
-            <li>Drug &amp; Cosmetic Alerts</li>
-            <li>Public Registries</li>
-            <li>Grievance Redressal</li>
+            <li><Link to="/knowledge" className="hover:text-white">Acts &amp; Rules</Link></li>
+            <li><Link to="/knowledge" className="hover:text-white">Guidelines &amp; FAQs</Link></li>
+            <li><Link to="/alerts" className="hover:text-white">Drug &amp; Cosmetic Alerts</Link></li>
+            <li><Link to="/registries" className="hover:text-white">Public Registries</Link></li>
+            <li><Link to="/grievance" className="hover:text-white">Grievance Redressal</Link></li>
           </ul>
         </div>
         <div>

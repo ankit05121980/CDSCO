@@ -30,6 +30,9 @@ import GrievancesPage from './pages/portal/GrievancesPage';
 import IntegrationsPage from './pages/portal/IntegrationsPage';
 import GrievancePage from './pages/public/GrievancePage';
 import RegistriesPage from './pages/public/RegistriesPage';
+import ShresthPage from './pages/portal/ShresthPage';
+import AnalyticsPage from './pages/portal/AnalyticsPage';
+import KnowledgePage from './pages/public/KnowledgePage';
 
 const pub = (el: JSX.Element) => <PublicLayout>{el}</PublicLayout>;
 const portal = (el: JSX.Element) => <PortalLayout>{el}</PortalLayout>;
@@ -43,6 +46,7 @@ export default function App() {
       <Route path="/alerts" element={pub(<AlertsPage />)} />
       <Route path="/registries" element={pub(<RegistriesPage />)} />
       <Route path="/grievance" element={pub(<GrievancePage />)} />
+      <Route path="/knowledge" element={pub(<KnowledgePage />)} />
       <Route path="/login" element={<LoginPage />} />
 
       {/* Portal */}
@@ -64,8 +68,8 @@ export default function App() {
       <Route path="/app/technical-persons" element={portal(<TechnicalPersonsPage />)} />
       <Route path="/app/grievances" element={portal(<GrievancesPage />)} />
       <Route path="/app/court-cases" element={portal(<EnforcementPage />)} />
-      <Route path="/app/shresth" element={portal(<ModulePlaceholder title="SHRESTH Index" />)} />
-      <Route path="/app/analytics" element={portal(<ModulePlaceholder title="Analytics & MIS" />)} />
+      <Route path="/app/shresth" element={portal(<ShresthPage />)} />
+      <Route path="/app/analytics" element={portal(<AnalyticsPage />)} />
       <Route path="/app/integrations" element={portal(<IntegrationsPage />)} />
       <Route path="/app/users" element={portal(<UsersPage />)} />
       <Route path="/app/audit" element={portal(<AuditPage />)} />
