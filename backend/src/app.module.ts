@@ -18,6 +18,11 @@ import { ProductsModule } from './modules/products/products.module';
 import { PaymentsModule } from './modules/payments/payments.module';
 import { LicensingModule } from './modules/licensing/licensing.module';
 import { ApplicationsModule } from './modules/applications/applications.module';
+import { InspectionsModule } from './modules/inspections/inspections.module';
+import { EnforcementModule } from './modules/enforcement/enforcement.module';
+import { LaboratoryModule } from './modules/laboratory/laboratory.module';
+import { ClinicalTrialsModule } from './modules/clinical-trials/clinical-trials.module';
+import { VigilanceModule } from './modules/vigilance/vigilance.module';
 
 @Module({
   imports: [
@@ -37,6 +42,11 @@ import { ApplicationsModule } from './modules/applications/applications.module';
     PaymentsModule,
     LicensingModule,
     ApplicationsModule,
+    InspectionsModule,
+    EnforcementModule,
+    LaboratoryModule,
+    ClinicalTrialsModule,
+    VigilanceModule,
   ],
   controllers: [HealthController],
   providers: [

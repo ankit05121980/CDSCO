@@ -18,6 +18,12 @@ import ApplicationDetailPage from './pages/portal/ApplicationDetailPage';
 import LicensesPage from './pages/portal/LicensesPage';
 import PaymentsPage from './pages/portal/PaymentsPage';
 import VerifyPage from './pages/public/VerifyPage';
+import AlertsPage from './pages/public/AlertsPage';
+import InspectionsPage from './pages/portal/InspectionsPage';
+import EnforcementPage from './pages/portal/EnforcementPage';
+import LaboratoryPage from './pages/portal/LaboratoryPage';
+import ClinicalTrialsPage from './pages/portal/ClinicalTrialsPage';
+import VigilancePage from './pages/portal/VigilancePage';
 
 const pub = (el: JSX.Element) => <PublicLayout>{el}</PublicLayout>;
 const portal = (el: JSX.Element) => <PortalLayout>{el}</PortalLayout>;
@@ -28,7 +34,7 @@ export default function App() {
       {/* Public */}
       <Route path="/" element={pub(<HomePage />)} />
       <Route path="/verify" element={pub(<VerifyPage />)} />
-      <Route path="/alerts" element={pub(<PlaceholderPage title="Drug & Cosmetic Alerts" />)} />
+      <Route path="/alerts" element={pub(<AlertsPage />)} />
       <Route path="/registries" element={pub(<PlaceholderPage title="Public Registries" />)} />
       <Route path="/grievance" element={pub(<PlaceholderPage title="File a Grievance" />)} />
       <Route path="/login" element={<LoginPage />} />
@@ -38,11 +44,11 @@ export default function App() {
       <Route path="/app/applications" element={portal(<ApplicationsPage />)} />
       <Route path="/app/applications/:id" element={portal(<ApplicationDetailPage />)} />
       <Route path="/app/licenses" element={portal(<LicensesPage />)} />
-      <Route path="/app/clinical-trials" element={portal(<ModulePlaceholder title="Clinical Trials" />)} />
-      <Route path="/app/inspections" element={portal(<ModulePlaceholder title="Inspections" />)} />
-      <Route path="/app/enforcement" element={portal(<ModulePlaceholder title="Enforcement" />)} />
-      <Route path="/app/vigilance" element={portal(<ModulePlaceholder title="Vigilance & Safety" />)} />
-      <Route path="/app/laboratory" element={portal(<ModulePlaceholder title="Laboratory (LIMS)" />)} />
+      <Route path="/app/clinical-trials" element={portal(<ClinicalTrialsPage />)} />
+      <Route path="/app/inspections" element={portal(<InspectionsPage />)} />
+      <Route path="/app/enforcement" element={portal(<EnforcementPage />)} />
+      <Route path="/app/vigilance" element={portal(<VigilancePage />)} />
+      <Route path="/app/laboratory" element={portal(<LaboratoryPage />)} />
       <Route path="/app/supply-chain" element={portal(<ModulePlaceholder title="Supply Chain" />)} />
       <Route path="/app/returns" element={portal(<ModulePlaceholder title="Returns Filing" />)} />
       <Route path="/app/payments" element={portal(<PaymentsPage />)} />
@@ -51,7 +57,7 @@ export default function App() {
       <Route path="/app/laboratories" element={portal(<LaboratoriesPage />)} />
       <Route path="/app/technical-persons" element={portal(<TechnicalPersonsPage />)} />
       <Route path="/app/grievances" element={portal(<ModulePlaceholder title="Grievances" />)} />
-      <Route path="/app/court-cases" element={portal(<ModulePlaceholder title="Court Cases" />)} />
+      <Route path="/app/court-cases" element={portal(<EnforcementPage />)} />
       <Route path="/app/shresth" element={portal(<ModulePlaceholder title="SHRESTH Index" />)} />
       <Route path="/app/analytics" element={portal(<ModulePlaceholder title="Analytics & MIS" />)} />
       <Route path="/app/integrations" element={portal(<ModulePlaceholder title="Integrations" />)} />

@@ -8,6 +8,13 @@ import { seedProducts } from './seeders/products.seeder';
 import { seedFeeRules } from './seeders/fee-rules.seeder';
 import { seedApplications } from './seeders/applications.seeder';
 import { seedLicensing } from './seeders/licensing.seeder';
+import {
+  seedInspections,
+  seedEnforcement,
+  seedLaboratory,
+  seedClinicalTrials,
+  seedVigilance,
+} from './seeders/operations.seeder';
 
 /**
  * DDRS seed orchestrator.
@@ -34,6 +41,11 @@ async function run() {
   await seedFeeRules(ds);
   await seedApplications(ds);
   await seedLicensing(ds);
+  await seedInspections(ds);
+  await seedEnforcement(ds);
+  await seedLaboratory(ds);
+  await seedClinicalTrials(ds);
+  await seedVigilance(ds);
 
   await ds.destroy();
   const secs = ((Date.now() - startedAt) / 1000).toFixed(1);
