@@ -1,0 +1,15 @@
+**/node_modules
+**/dist
+**/build
+**/.git
+**/*.sqlite
+**/*.sqlite-journal
+ddrs.sqlite*
+**/*.log
+**/.env
+**/.env.local
+**/coverage
+**/.vite
+**/.cache
+*.tsbuildinfo
+/opt/cursor

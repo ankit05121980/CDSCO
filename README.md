@@ -57,6 +57,24 @@ pnpm --filter backend start:dev    # backend on :3001
 pnpm --filter frontend dev         # frontend on :5173
 ```
 
+## Deploy (single service)
+
+In production the backend serves the built SPA **and** the API on one port.
+
+```bash
+# Option A — Node, one process
+pnpm install && pnpm build && pnpm --filter backend seed
+pnpm start:prod                     # http://localhost:3001 (API + web)
+
+# Option B — Docker (SQLite, auto-seeded)
+docker compose up --build           # http://localhost:3001
+
+# Option C — Docker + PostgreSQL
+docker compose --profile postgres up --build
+```
+
+Full guide: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+
 ## Demo Logins
 
 Seeded demo accounts (one per role) are listed in [`docs/ROLES.md`](docs/ROLES.md)

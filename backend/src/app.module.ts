@@ -1,6 +1,9 @@
 import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { existsSync } from 'fs';
+import { join } from 'path';
 import { buildDataSourceOptions } from './config/data-source';
 import { HealthController } from './health.controller';
 import { CommonModule } from './common/common.module';
@@ -14,6 +17,19 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
 import { DocumentsModule } from './modules/documents/documents.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { RegistryModule } from './modules/registry/registry.module';
+// In production, the backend can serve the built frontend SPA so the whole
+// app runs as a single service. STATIC_ROOT overrides the default location.
+const STATIC_ROOT =
+  process.env.STATIC_ROOT || join(process.cwd(), '..', 'frontend', 'dist');
+const serveStatic =
+  existsSync(join(STATIC_ROOT, 'index.html'))
+    ? [
+        ServeStaticModule.forRoot({
+          rootPath: STATIC_ROOT,
+          exclude: ['/api', '/api/(.*)', '/health'],
+        }),
+      ]
+    : [];
 import { ProductsModule } from './modules/products/products.module';
 import { PaymentsModule } from './modules/payments/payments.module';
 import { LicensingModule } from './modules/licensing/licensing.module';
@@ -30,6 +46,7 @@ import { IntegrationsModule } from './modules/integrations/integrations.module';
 
 @Module({
   imports: [
+    ...serveStatic,
     TypeOrmModule.forRoot({
       ...buildDataSourceOptions(),
       autoLoadEntities: true,

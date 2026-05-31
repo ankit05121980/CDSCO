@@ -7,6 +7,8 @@
     "dev": "concurrently -n backend,frontend -c blue,green \"pnpm --filter backend start:dev\" \"pnpm --filter frontend dev\"",
     "build": "pnpm --filter backend build && pnpm --filter frontend build",
     "seed": "pnpm --filter backend seed",
+    "start": "pnpm --filter backend start:prod",
+    "start:prod": "pnpm --filter backend start:prod",
     "start:backend": "pnpm --filter backend start:dev",
     "start:frontend": "pnpm --filter frontend dev",
     "lint": "pnpm --filter backend lint && pnpm --filter frontend lint"
