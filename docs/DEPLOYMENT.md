@@ -85,6 +85,38 @@ variables — no code or schema change (the schema is DB-portable).
 - [ ] Run a CERT-In empanelled security audit; enable ISO 27001 controls.
 - [ ] Configure log shipping / metrics / tracing.
 
+## Getting a public URL (hosted link)
+
+You need a hosting account; pick whichever is fastest for you. The repo is
+already deploy-ready for all three.
+
+### 1. Render (easiest, free, uses `render.yaml`)
+1. Sign in at https://dashboard.render.com (free).
+2. **New → Blueprint** → select this GitHub repo.
+3. Render reads `render.yaml`, builds the Dockerfile, and gives you an HTTPS URL
+   like `https://ddrs.onrender.com`. First boot auto-seeds the demo data.
+
+### 2. Fly.io (global, uses `fly.toml`)
+```bash
+fly launch --copy-config --now          # edit `app` to a unique name first
+fly secrets set JWT_SECRET=$(openssl rand -hex 32)
+fly open                                 # prints your https URL
+```
+
+### 3. Instant temporary link via tunnel (no host account)
+If you're already running it locally (`pnpm start:prod`, port 3001):
+```bash
+# Cloudflare (no signup):
+cloudflared tunnel --url http://localhost:3001
+# or ngrok:
+ngrok http 3001
+```
+This prints a public `https://…` URL that forwards to your local server — great
+for a quick demo (link lasts while the tunnel runs).
+
+> Inside the Cursor IDE you can also use the built-in port preview/forwarding on
+> port **3001** to open the running app in your browser.
+
 ## Notes
 
 - The Docker assets (`Dockerfile`, `docker-compose.yml`, `docker-entrypoint.sh`)

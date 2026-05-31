@@ -1,0 +1,32 @@
+# Fly.io deployment for DDRS.
+# Usage:
+#   1. Install flyctl: https://fly.io/docs/hands-on/install-flyctl/
+#   2. fly launch --copy-config --now           (or: fly deploy)
+#   3. fly secrets set JWT_SECRET=$(openssl rand -hex 32)
+#   4. fly open                                  -> your public https URL
+#
+# Change `app` to a globally-unique name before deploying.
+app = "ddrs-cdsco"
+primary_region = "bom"   # Mumbai
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "3001"
+  NODE_ENV = "production"
+  DB_TYPE = "sqlite"
+  DB_PATH = "/app/data/ddrs.sqlite"
+
+[http_service]
+  internal_port = 3001
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+# Durable SQLite storage (optional but recommended). Create with:
+#   fly volumes create ddrs_data --size 1 --region bom
+[[mounts]]
+  source = "ddrs_data"
+  destination = "/app/data"

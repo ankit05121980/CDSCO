@@ -1,0 +1,27 @@
+# Render.com Blueprint — one-click deploy for DDRS.
+# Usage:
+#   1. Push this repo to GitHub (already done).
+#   2. Go to https://dashboard.render.com → New → Blueprint → pick this repo.
+#   3. Render reads this file, builds the Dockerfile and gives you an HTTPS URL.
+#
+# Notes:
+#   - Free web services on Render are ephemeral (no persistent disk): the
+#     SQLite DB is auto-seeded on each cold start by docker-entrypoint.sh.
+#   - For durable data, switch to a paid plan + disk, or set DB_TYPE=postgres
+#     and add a Render PostgreSQL instance (see docs/DEPLOYMENT.md).
+services:
+  - type: web
+    name: ddrs
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      # Render injects PORT automatically; the app honours it.
+      - key: DB_TYPE
+        value: sqlite
+      - key: DB_PATH
+        value: /app/data/ddrs.sqlite
