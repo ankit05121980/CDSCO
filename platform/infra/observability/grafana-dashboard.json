@@ -1,0 +1,40 @@
+{
+  "title": "Athena Platform — Overview",
+  "uid": "athena-overview",
+  "schemaVersion": 39,
+  "tags": ["athena"],
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Request rate (req/s)",
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 0 },
+      "targets": [{ "expr": "sum(rate(http_requests_total{job=\"athena-api\"}[5m]))" }]
+    },
+    {
+      "type": "stat",
+      "title": "5xx error %",
+      "gridPos": { "h": 6, "w": 6, "x": 6, "y": 0 },
+      "targets": [
+        {
+          "expr": "100 * sum(rate(http_requests_total{job=\"athena-api\",status=~\"5..\"}[5m])) / sum(rate(http_requests_total{job=\"athena-api\"}[5m]))"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Latency p50/p95/p99",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        { "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket{job=\"athena-api\"}[5m])) by (le))", "legendFormat": "p50" },
+        { "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{job=\"athena-api\"}[5m])) by (le))", "legendFormat": "p95" },
+        { "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket{job=\"athena-api\"}[5m])) by (le))", "legendFormat": "p99" }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "AI invocations by task",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "targets": [{ "expr": "sum(rate(athena_ai_requests_total[5m])) by (task)", "legendFormat": "{{task}}" }]
+    }
+  ]
+}
