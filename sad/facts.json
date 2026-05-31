@@ -1,0 +1,5185 @@
+{
+  "entities": [
+    {
+      "table": "adverse_events",
+      "class": "AdverseEvent",
+      "doc": "Adverse event report \u2014 SAE, AEFI, ICSR, Pharmaco/Materio/Haemovigilance.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "referenceNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "SAE"
+        },
+        {
+          "name": "productName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "seriousness",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "reporterType",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "patientAgeGroup",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "patientGender",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "outcome",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "RECEIVED"
+        },
+        {
+          "name": "causality",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "MANUAL"
+        },
+        {
+          "name": "reportedDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "stateCode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "vigilance"
+    },
+    {
+      "table": "application_events",
+      "class": "ApplicationEvent",
+      "doc": "Immutable workflow history entry for an application.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "applicationId",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "fromStatus",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "toStatus",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "action",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "actorId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "actorName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "actorRole",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "remarks",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "applications"
+    },
+    {
+      "table": "applications",
+      "class": "Application",
+      "doc": "Central application object driven by the generic workflow engine. Covers the full regulatory lifecycle: registration, market authorisation, licensing, renewal, endorsement, post-approval change, suspension, surrender, appeal, NOC, clinical trial, etc.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "referenceNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "type",
+          "type": "ApplicationType",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "productCategory",
+          "type": "ProductCategory",
+          "nullable": true,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "riskClass",
+          "type": "RiskClass",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "jurisdiction",
+          "type": "Jurisdiction",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "Jurisdiction.CENTRE"
+        },
+        {
+          "name": "stateCode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "applicantUserId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "applicantName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "organizationId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "organizationName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "ApplicationStatus",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "ApplicationStatus.DRAFT"
+        },
+        {
+          "name": "currentStage",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "Submission"
+        },
+        {
+          "name": "assignedToId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "assignedToName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "priority",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "NORMAL"
+        },
+        {
+          "name": "feeAmount",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "feePaid",
+          "type": "boolean",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "false"
+        },
+        {
+          "name": "paymentId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "submittedAt",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "slaDays",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "30"
+        },
+        {
+          "name": "dueDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "decisionDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "decisionRemarks",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "productId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "relatedLicenseId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "issuedLicenseId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "formData",
+          "type": "Record<string, any>",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "applications"
+    },
+    {
+      "table": "audit_logs",
+      "class": "AuditLog",
+      "doc": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "userId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "userEmail",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "userRole",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "action",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "method",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "userAgent",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "statusCode",
+          "type": "number",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "durationMs",
+          "type": "number",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "metadata",
+          "type": "Record<string, any>",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "audit"
+    },
+    {
+      "table": "batch_release_certs",
+      "class": "BatchReleaseCertificate",
+      "doc": "Batch Release Certificate (BRC) for biologicals, incl. SLP scrutiny.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "referenceNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "productName",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "batchNo",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "manufacturerName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "labName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "RELEASED"
+        },
+        {
+          "name": "slpScrutinised",
+          "type": "boolean",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "false"
+        },
+        {
+          "name": "releasedDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "potency",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "laboratory"
+    },
+    {
+      "table": "certificates",
+      "class": "Certificate",
+      "doc": "Issued certificate or NOC (COPP, FSC, MSC, NCC, WC, GMP, NOCs, codes).",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "referenceNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "certType",
+          "type": "CertificateType",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "isNoc",
+          "type": "boolean",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "false"
+        },
+        {
+          "name": "applicationId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "holderOrgId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "holderName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "productId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "productName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "issueDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "validTo",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "ACTIVE"
+        },
+        {
+          "name": "qrPayload",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "issuedByName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "fields",
+          "type": "Record<string, any>",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "licensing"
+    },
+    {
+      "table": "clinical_trials",
+      "class": "ClinicalTrial",
+      "doc": "Clinical trial / GCT / BA-BE / PMS / academic / veterinary field trial.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "referenceNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "CLINICAL_TRIAL"
+        },
+        {
+          "name": "phase",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "sponsorName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "croName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "drugName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "therapeuticArea",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "SUBMITTED"
+        },
+        {
+          "name": "ctriNo",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "ecApprovalNo",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "subjectsPlanned",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "sitesCount",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "startDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "isGlobal",
+          "type": "boolean",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "false"
+        }
+      ],
+      "module": "clinical-trials"
+    },
+    {
+      "table": "compensation_claims",
+      "class": "CompensationClaim",
+      "doc": "Compensation claim arising from a serious adverse event in a trial.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "referenceNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "relatedAeId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "trialRef",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "claimantName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "amountClaimed",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "amountAwarded",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "FILED"
+        },
+        {
+          "name": "filedDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "vigilance"
+    },
+    {
+      "table": "court_cases",
+      "class": "CourtCase",
+      "doc": "Prosecution / court case + Action Taken Report tracking.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "caseNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "court",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "parties",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "DRUGS_COSMETICS_ACT"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "FILED"
+        },
+        {
+          "name": "filedDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "nextHearing",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "relatedEnforcementId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "stateCode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "actionTakenReport",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "enforcement"
+    },
+    {
+      "table": "documents",
+      "class": "Document",
+      "doc": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "mimeType",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "application/pdf"
+        },
+        {
+          "name": "sizeBytes",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "storageRef",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "version",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "1"
+        },
+        {
+          "name": "checksum",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "relatedType",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "relatedId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "uploadedById",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "uploadedByName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "signed",
+          "type": "boolean",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "false"
+        }
+      ],
+      "module": "documents"
+    },
+    {
+      "table": "enforcement_cases",
+      "class": "EnforcementCase",
+      "doc": "Enforcement case \u2014 quality monitoring, sampling, NSQ/spurious detection, investigations and inter-state coordination.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "referenceNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "productName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "brandName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "batchNo",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "manufacturerName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "stateCode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "classification",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "MEDIUM"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "OPEN"
+        },
+        {
+          "name": "detectedDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "interState",
+          "type": "boolean",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "false"
+        },
+        {
+          "name": "actionTaken",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "sampleId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "labReportRef",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "enforcement"
+    },
+    {
+      "table": "esignatures",
+      "class": "ESignature",
+      "doc": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "documentId",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "signerId",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "signerName",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "signerDesignation",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "method",
+          "type": "ESignMethod",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "OTP"
+        },
+        {
+          "name": "signatureHash",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "certificateMeta",
+          "type": "Record<string, any>",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "signedAt",
+          "type": "Date",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "documents"
+    },
+    {
+      "table": "fee_rules",
+      "class": "FeeRule",
+      "doc": "Configurable fee rule used to auto-calculate application fees.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "applicationType",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "productCategory",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "riskClass",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "jurisdiction",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "payments"
+    },
+    {
+      "table": "grievances",
+      "class": "Grievance",
+      "doc": "Grievance / complaint ticket with SLA & escalation tracking.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "ticketNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "subject",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "complainantName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "complainantEmail",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "complainantType",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "OPEN"
+        },
+        {
+          "name": "priority",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "NORMAL"
+        },
+        {
+          "name": "assignedTo",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "slaDays",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "7"
+        },
+        {
+          "name": "dueDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "channel",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "stateCode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "resolution",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "resolvedAt",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "grievances"
+    },
+    {
+      "table": "inspection_findings",
+      "class": "InspectionFinding",
+      "doc": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "inspectionId",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "observation",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "MINOR"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "response",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "OPEN"
+        }
+      ],
+      "module": "inspections"
+    },
+    {
+      "table": "inspections",
+      "class": "Inspection",
+      "doc": "Site inspection \u2014 manufacturing, joint (Centre+State), BA/BE, CRO, blood centre, retail, WC, medical device, etc. Captures geo-tag and form data (Form-35 / MD-11 / COS-11). Supports joint consolidated reporting.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "referenceNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "entityId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "entityName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "stateCode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "jurisdiction",
+          "type": "Jurisdiction",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "Jurisdiction.STATE"
+        },
+        {
+          "name": "isJoint",
+          "type": "boolean",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "false"
+        },
+        {
+          "name": "formType",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "scheduledDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "conductedDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "inspectors",
+          "type": "{ id?: string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "masked",
+          "type": "boolean",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "false"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "SCHEDULED"
+        },
+        {
+          "name": "outcome",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "latitude",
+          "type": "number",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "longitude",
+          "type": "number",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "observationsCount",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "applicationId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "consolidatedReport",
+          "type": "Record<string, any>",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "inspections"
+    },
+    {
+      "table": "integration_logs",
+      "class": "IntegrationLog",
+      "doc": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "system",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "systemName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "direction",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "operation",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "request",
+          "type": "Record<string, any>",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "response",
+          "type": "Record<string, any>",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "SUCCESS"
+        },
+        {
+          "name": "latencyMs",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        }
+      ],
+      "module": "integrations"
+    },
+    {
+      "table": "invoices",
+      "class": "Invoice",
+      "doc": "Supply & distribution invoice.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "invoiceNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "sellerName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "buyerName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "invoiceDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "itemCount",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "batchRefs",
+          "type": "string[]",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "stateCode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "supply-chain"
+    },
+    {
+      "table": "laboratories",
+      "class": "Laboratory",
+      "doc": "Testing Laboratory registry \u2014 Central (CDL/CDTL/RDTL/IPC/NIB), State and Private labs. Onboardable without code changes (RFP requirement).",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "type",
+          "type": "LabType",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "registrationNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "stateCode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "stateName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "city",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "latitude",
+          "type": "number",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "longitude",
+          "type": "number",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "nablAccreditationNo",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "nablAccredited",
+          "type": "boolean",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "false"
+        },
+        {
+          "name": "testingScope",
+          "type": "string[]",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "contactPerson",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "EntityStatus",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "EntityStatus.ACTIVE"
+        },
+        {
+          "name": "capacityPerMonth",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        }
+      ],
+      "module": "registry"
+    },
+    {
+      "table": "licenses",
+      "class": "License",
+      "doc": "Issued licence (manufacturing, import, sale, test, loan, etc.).",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "referenceNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "licenceType",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "formNumber",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "applicationId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "holderOrgId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "holderName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "productCategory",
+          "type": "ProductCategory",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "jurisdiction",
+          "type": "Jurisdiction",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "Jurisdiction.CENTRE"
+        },
+        {
+          "name": "stateCode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "LicenseStatus",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "LicenseStatus.ISSUED"
+        },
+        {
+          "name": "issueDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "validFrom",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "validTo",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "productCount",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "conditions",
+          "type": "string[]",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "qrPayload",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "issuedByName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "licensing"
+    },
+    {
+      "table": "master_data",
+      "class": "MasterData",
+      "doc": "Generic reference master-data registry (drug categories, dosage forms, blood types, states, zones, etc.). Extensible without code changes.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "meta",
+          "type": "Record<string, any>",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "true"
+        }
+      ],
+      "module": "master-data"
+    },
+    {
+      "table": "notifications",
+      "class": "Notification",
+      "doc": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "userId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "type",
+          "type": "NotificationType",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "INFO"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "link",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "relatedId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "channel",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "IN_APP"
+        },
+        {
+          "name": "read",
+          "type": "boolean",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "false"
+        }
+      ],
+      "module": "notifications"
+    },
+    {
+      "table": "organizations",
+      "class": "Organization",
+      "doc": "Regulated entity registry \u2014 manufacturers, importers, exporters, wholesalers/retailers, CROs, ethics committees, blood centres, BA/BE centres, consultants, marketers. Acts as a source-of-truth registry.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "type",
+          "type": "OrganizationType",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "registrationNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "gstin",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "pan",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "cin",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "city",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "stateCode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "stateName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "pincode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "latitude",
+          "type": "number",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "longitude",
+          "type": "number",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "contactPerson",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "website",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "EntityStatus",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "EntityStatus.ACTIVE"
+        },
+        {
+          "name": "jurisdiction",
+          "type": "Jurisdiction",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "Jurisdiction.STATE"
+        },
+        {
+          "name": "riskClass",
+          "type": "RiskClass",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "productCategories",
+          "type": "string[]",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "establishedYear",
+          "type": "number",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "productCount",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "ownerUserId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "registry"
+    },
+    {
+      "table": "payments",
+      "class": "Payment",
+      "doc": "Fee payment record (Bharat Kosh / State Treasury \u2014 simulated gateway).",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "referenceNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "applicationId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "applicationRef",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "payerId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "payerName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "INR"
+        },
+        {
+          "name": "mode",
+          "type": "PaymentMode",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "PaymentMode.UPI"
+        },
+        {
+          "name": "gateway",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "BHARAT_KOSH"
+        },
+        {
+          "name": "status",
+          "type": "PaymentStatus",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "PaymentStatus.PENDING"
+        },
+        {
+          "name": "txnRef",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "paidAt",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "breakup",
+          "type": "{ head: string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "refundRef",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "refundedAt",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "payments"
+    },
+    {
+      "table": "products",
+      "class": "Product",
+      "doc": "Product registry across all regulated categories (drugs, biologicals, medical devices, IVDs, cosmetics, veterinary, AYUSH, blood products).",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "brandName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "category",
+          "type": "ProductCategory",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "genericName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "dosageForm",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "strength",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "composition",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "registrationNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "riskClass",
+          "type": "RiskClass",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "schedule",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "therapeuticArea",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "hsnCode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "packSize",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "manufacturerId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "manufacturerName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "ACTIVE"
+        },
+        {
+          "name": "isImported",
+          "type": "boolean",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "false"
+        },
+        {
+          "name": "approvalDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "products"
+    },
+    {
+      "table": "psur",
+      "class": "Psur",
+      "doc": "Periodic Safety Update Report.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "referenceNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "productName",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "manufacturerName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "periodFrom",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "periodTo",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "SUBMITTED"
+        },
+        {
+          "name": "submittedDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "casesReported",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        }
+      ],
+      "module": "vigilance"
+    },
+    {
+      "table": "recalls",
+      "class": "Recall",
+      "doc": "Product recall record with supplied vs recalled quantity tracking.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "referenceNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "productName",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "brandName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "batchNo",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "manufacturerName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "classification",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "CLASS_II"
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "quantitySupplied",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "quantityRecalled",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "INITIATED"
+        },
+        {
+          "name": "initiatedDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "stateCode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "voluntary",
+          "type": "boolean",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "false"
+        }
+      ],
+      "module": "enforcement"
+    },
+    {
+      "table": "reference_standards",
+      "class": "ReferenceStandard",
+      "doc": "Reference standard validated/issued by laboratories.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "labName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "VALIDATED"
+        },
+        {
+          "name": "validTo",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "unitsIssued",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        }
+      ],
+      "module": "laboratory"
+    },
+    {
+      "table": "returns_filings",
+      "class": "ReturnFiling",
+      "doc": "Periodic return filing (production/sales/consumption/stock) \u2014 GST/ITR style.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "referenceNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "organizationId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "organizationName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "PRODUCTION"
+        },
+        {
+          "name": "period",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "FILED"
+        },
+        {
+          "name": "dueDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "filedDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "totalValue",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "dataPoints",
+          "type": "Record<string, any>",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "stateCode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "returns"
+    },
+    {
+      "table": "samples",
+      "class": "Sample",
+      "doc": "Lab sample received for testing.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "referenceNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "productName",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "batchNo",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "manufacturerName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "drawnByName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "drawnDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "labId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "labName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "sampleType",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "SURVEY"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "RECEIVED"
+        },
+        {
+          "name": "stateCode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "laboratory"
+    },
+    {
+      "table": "supply_chain_batches",
+      "class": "SupplyChainBatch",
+      "doc": "Batch in the supply chain (QR-traceable from source to consumption).",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "batchNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "productName",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "brandName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "manufacturerName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "manufactureDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "expiryDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "quantity",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "qrPayload",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "IN_TRANSIT"
+        },
+        {
+          "name": "currentHolder",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "storageCondition",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "AMBIENT"
+        }
+      ],
+      "module": "supply-chain"
+    },
+    {
+      "table": "supply_chain_movements",
+      "class": "SupplyChainMovement",
+      "doc": "A movement event of a batch between supply-chain entities.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "batchId",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "batchNo",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "fromEntity",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "fromType",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "toEntity",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "toType",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "quantity",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "movementDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "invoiceNo",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "location",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "supply-chain"
+    },
+    {
+      "table": "technical_persons",
+      "class": "TechnicalPerson",
+      "doc": "Technical Person registry.  Business rule (RFP): a technical person can be associated with only ONE manufacturer / laboratory / blood bank / wholesaler / retailer at a time. Enforced via a unique registrationNo and single organizationId, with the service rejecting attempts to attach an already-engaged person elsewhere.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "registrationNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "qualification",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "designation",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "aadhaarMasked",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "organizationId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "organizationName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "organizationType",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "'ENGAGED' | 'AVAILABLE' | 'BLACKLISTED'",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "ENGAGED"
+        },
+        {
+          "name": "experienceYears",
+          "type": "number",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "registry"
+    },
+    {
+      "table": "test_reports",
+      "class": "TestReport",
+      "doc": "Laboratory test report for a sample.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "referenceNo",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "sampleId",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "sampleRef",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "productName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "labId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "labName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "analystName",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "result",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": "STANDARD_QUALITY"
+        },
+        {
+          "name": "parameters",
+          "type": "{ name: string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "conclusion",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "reportDate",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "FINALISED"
+        }
+      ],
+      "module": "laboratory"
+    },
+    {
+      "table": "trial_sites",
+      "class": "TrialSite",
+      "doc": "Clinical trial / GCT / BA-BE / PMS / academic / veterinary field trial.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "trialId",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "trialRef",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "siteName",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "city",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "stateCode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "principalInvestigator",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "ethicsCommittee",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "subjectsEnrolled",
+          "type": "number",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "0"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "ACTIVE"
+        }
+      ],
+      "module": "clinical-trials"
+    },
+    {
+      "table": "users",
+      "class": "User",
+      "doc": "",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "nullable": false,
+          "unique": true,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "passwordHash",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "fullName",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "primaryRole",
+          "type": "Role",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "Role.PUBLIC_USER"
+        },
+        {
+          "name": "roles",
+          "type": "Role[]",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "UserStatus",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "ACTIVE"
+        },
+        {
+          "name": "organizationId",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "stateCode",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "office",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "designation",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "aadhaarMasked",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "aadhaarVerified",
+          "type": "boolean",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "false"
+        },
+        {
+          "name": "lastLoginAt",
+          "type": "Date",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "lastLoginIp",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        }
+      ],
+      "module": "users"
+    },
+    {
+      "table": "work_allocations",
+      "class": "WorkAllocation",
+      "doc": "Records random/auto/manual allocation of work (applications, inspections, sample testing) to officers \u2014 supports masked assignment and manual override.",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "note": "PK"
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "note": "audit"
+        },
+        {
+          "name": "itemType",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "itemId",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": true,
+          "default": null
+        },
+        {
+          "name": "itemRef",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "assignedToId",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "assignedToName",
+          "type": "string",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "assignedToRole",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "mode",
+          "type": "AllocationMode",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "AllocationMode.AUTO"
+        },
+        {
+          "name": "masked",
+          "type": "boolean",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "false"
+        },
+        {
+          "name": "allocatedById",
+          "type": "string",
+          "nullable": true,
+          "unique": false,
+          "indexed": false,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "'ASSIGNED' | 'COMPLETED' | 'REASSIGNED'",
+          "nullable": false,
+          "unique": false,
+          "indexed": false,
+          "default": "ASSIGNED"
+        }
+      ],
+      "module": "applications"
+    }
+  ],
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "handler": "health",
+      "tag": "system"
+    },
+    {
+      "method": "GET",
+      "path": "/api",
+      "handler": "apiRoot",
+      "tag": "system"
+    },
+    {
+      "method": "GET",
+      "path": "/api/registry/organizations",
+      "handler": "listOrgs",
+      "tag": "registry"
+    },
+    {
+      "method": "GET",
+      "path": "/api/registry/organizations/stats",
+      "handler": "orgStats",
+      "tag": "registry"
+    },
+    {
+      "method": "GET",
+      "path": "/api/registry/organizations/:id",
+      "handler": "org",
+      "tag": "registry"
+    },
+    {
+      "method": "POST",
+      "path": "/api/registry/organizations",
+      "handler": "createOrg",
+      "tag": "registry"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/registry/organizations/:id/status",
+      "handler": "setOrgStatus",
+      "tag": "registry"
+    },
+    {
+      "method": "GET",
+      "path": "/api/registry/technical-persons",
+      "handler": "listTps",
+      "tag": "registry"
+    },
+    {
+      "method": "GET",
+      "path": "/api/registry/technical-persons/duplicates",
+      "handler": "tpDuplicates",
+      "tag": "registry"
+    },
+    {
+      "method": "GET",
+      "path": "/api/registry/technical-persons/:id",
+      "handler": "tp",
+      "tag": "registry"
+    },
+    {
+      "method": "POST",
+      "path": "/api/registry/technical-persons",
+      "handler": "createTp",
+      "tag": "registry"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/registry/technical-persons/:id/assign",
+      "handler": "assignTp",
+      "tag": "registry"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/registry/technical-persons/:id/release",
+      "handler": "releaseTp",
+      "tag": "registry"
+    },
+    {
+      "method": "GET",
+      "path": "/api/registry/laboratories",
+      "handler": "listLabs",
+      "tag": "registry"
+    },
+    {
+      "method": "GET",
+      "path": "/api/registry/laboratories/stats",
+      "handler": "labStats",
+      "tag": "registry"
+    },
+    {
+      "method": "GET",
+      "path": "/api/registry/laboratories/:id",
+      "handler": "lab",
+      "tag": "registry"
+    },
+    {
+      "method": "POST",
+      "path": "/api/registry/laboratories",
+      "handler": "createLab",
+      "tag": "registry"
+    },
+    {
+      "method": "GET",
+      "path": "/api/supply-chain/stats",
+      "handler": "stats",
+      "tag": "supply-chain"
+    },
+    {
+      "method": "GET",
+      "path": "/api/supply-chain/batches",
+      "handler": "listBatches",
+      "tag": "supply-chain"
+    },
+    {
+      "method": "GET",
+      "path": "/api/supply-chain/trace/:batchNo",
+      "handler": "trace",
+      "tag": "supply-chain"
+    },
+    {
+      "method": "GET",
+      "path": "/api/supply-chain/invoices",
+      "handler": "listInvoices",
+      "tag": "supply-chain"
+    },
+    {
+      "method": "GET",
+      "path": "/api/laboratory/stats",
+      "handler": "stats",
+      "tag": "laboratory"
+    },
+    {
+      "method": "GET",
+      "path": "/api/laboratory/samples",
+      "handler": "listSamples",
+      "tag": "laboratory"
+    },
+    {
+      "method": "POST",
+      "path": "/api/laboratory/samples",
+      "handler": "registerSample",
+      "tag": "laboratory"
+    },
+    {
+      "method": "POST",
+      "path": "/api/laboratory/samples/:id/test",
+      "handler": "testSample",
+      "tag": "laboratory"
+    },
+    {
+      "method": "GET",
+      "path": "/api/laboratory/reports",
+      "handler": "listReports",
+      "tag": "laboratory"
+    },
+    {
+      "method": "GET",
+      "path": "/api/laboratory/batch-release",
+      "handler": "listBrcs",
+      "tag": "laboratory"
+    },
+    {
+      "method": "GET",
+      "path": "/api/laboratory/reference-standards",
+      "handler": "listStandards",
+      "tag": "laboratory"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents",
+      "handler": "list",
+      "tag": "documents"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/:id",
+      "handler": "findOne",
+      "tag": "documents"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents",
+      "handler": "upload",
+      "tag": "documents"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents/:id/sign",
+      "handler": "sign",
+      "tag": "documents"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/me",
+      "handler": "me",
+      "tag": "users"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/stats",
+      "handler": "stats",
+      "tag": "users"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users",
+      "handler": "findAll",
+      "tag": "users"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/:id",
+      "handler": "findOne",
+      "tag": "users"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/:id/status",
+      "handler": "updateStatus",
+      "tag": "users"
+    },
+    {
+      "method": "GET",
+      "path": "/api/returns",
+      "handler": "list",
+      "tag": "returns"
+    },
+    {
+      "method": "GET",
+      "path": "/api/returns/stats",
+      "handler": "stats",
+      "tag": "returns"
+    },
+    {
+      "method": "POST",
+      "path": "/api/returns",
+      "handler": "file",
+      "tag": "returns"
+    },
+    {
+      "method": "GET",
+      "path": "/api/integrations/catalog",
+      "handler": "catalog",
+      "tag": "integrations"
+    },
+    {
+      "method": "GET",
+      "path": "/api/integrations/stats",
+      "handler": "stats",
+      "tag": "integrations"
+    },
+    {
+      "method": "GET",
+      "path": "/api/integrations/logs",
+      "handler": "logs",
+      "tag": "integrations"
+    },
+    {
+      "method": "POST",
+      "path": "/api/integrations/invoke",
+      "handler": "invoke",
+      "tag": "integrations"
+    },
+    {
+      "method": "GET",
+      "path": "/api/notifications",
+      "handler": "list",
+      "tag": "notifications"
+    },
+    {
+      "method": "GET",
+      "path": "/api/notifications/unread-count",
+      "handler": "unread",
+      "tag": "notifications"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/notifications/:id/read",
+      "handler": "markRead",
+      "tag": "notifications"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/notifications/read-all",
+      "handler": "markAll",
+      "tag": "notifications"
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "handler": "login",
+      "tag": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "handler": "register",
+      "tag": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/otp/request",
+      "handler": "requestOtp",
+      "tag": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/otp/verify",
+      "handler": "verifyOtp",
+      "tag": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/aadhaar",
+      "handler": "aadhaar",
+      "tag": "auth"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "handler": "me",
+      "tag": "auth"
+    },
+    {
+      "method": "GET",
+      "path": "/api/inspections",
+      "handler": "list",
+      "tag": "inspections"
+    },
+    {
+      "method": "GET",
+      "path": "/api/inspections/stats",
+      "handler": "stats",
+      "tag": "inspections"
+    },
+    {
+      "method": "GET",
+      "path": "/api/inspections/:id",
+      "handler": "findOne",
+      "tag": "inspections"
+    },
+    {
+      "method": "POST",
+      "path": "/api/inspections",
+      "handler": "schedule",
+      "tag": "inspections"
+    },
+    {
+      "method": "POST",
+      "path": "/api/inspections/:id/complete",
+      "handler": "complete",
+      "tag": "inspections"
+    },
+    {
+      "method": "GET",
+      "path": "/api/applications",
+      "handler": "list",
+      "tag": "applications"
+    },
+    {
+      "method": "GET",
+      "path": "/api/applications/stats",
+      "handler": "stats",
+      "tag": "applications"
+    },
+    {
+      "method": "GET",
+      "path": "/api/applications/trs",
+      "handler": "trs",
+      "tag": "applications"
+    },
+    {
+      "method": "GET",
+      "path": "/api/applications/overdue",
+      "handler": "overdue",
+      "tag": "applications"
+    },
+    {
+      "method": "GET",
+      "path": "/api/applications/allocations",
+      "handler": "allocations",
+      "tag": "applications"
+    },
+    {
+      "method": "GET",
+      "path": "/api/applications/:id",
+      "handler": "getOne",
+      "tag": "applications"
+    },
+    {
+      "method": "POST",
+      "path": "/api/applications",
+      "handler": "create",
+      "tag": "applications"
+    },
+    {
+      "method": "POST",
+      "path": "/api/applications/:id/submit",
+      "handler": "submit",
+      "tag": "applications"
+    },
+    {
+      "method": "POST",
+      "path": "/api/applications/:id/confirm-payment",
+      "handler": "confirmPayment",
+      "tag": "applications"
+    },
+    {
+      "method": "POST",
+      "path": "/api/applications/:id/transition",
+      "handler": "transition",
+      "tag": "applications"
+    },
+    {
+      "method": "POST",
+      "path": "/api/applications/:id/allocate",
+      "handler": "allocate",
+      "tag": "applications"
+    },
+    {
+      "method": "GET",
+      "path": "/api/clinical-trials",
+      "handler": "list",
+      "tag": "clinical-trials"
+    },
+    {
+      "method": "GET",
+      "path": "/api/clinical-trials/stats",
+      "handler": "stats",
+      "tag": "clinical-trials"
+    },
+    {
+      "method": "GET",
+      "path": "/api/clinical-trials/:id",
+      "handler": "findOne",
+      "tag": "clinical-trials"
+    },
+    {
+      "method": "POST",
+      "path": "/api/clinical-trials",
+      "handler": "create",
+      "tag": "clinical-trials"
+    },
+    {
+      "method": "GET",
+      "path": "/api/payments",
+      "handler": "list",
+      "tag": "payments"
+    },
+    {
+      "method": "GET",
+      "path": "/api/payments/stats",
+      "handler": "stats",
+      "tag": "payments"
+    },
+    {
+      "method": "GET",
+      "path": "/api/payments/calc",
+      "handler": "calc",
+      "tag": "payments"
+    },
+    {
+      "method": "GET",
+      "path": "/api/payments/:id",
+      "handler": "findOne",
+      "tag": "payments"
+    },
+    {
+      "method": "POST",
+      "path": "/api/payments/:id/pay",
+      "handler": "pay",
+      "tag": "payments"
+    },
+    {
+      "method": "POST",
+      "path": "/api/payments/:id/refund",
+      "handler": "refund",
+      "tag": "payments"
+    },
+    {
+      "method": "GET",
+      "path": "/api/vigilance/stats",
+      "handler": "stats",
+      "tag": "vigilance"
+    },
+    {
+      "method": "GET",
+      "path": "/api/vigilance/events",
+      "handler": "listEvents",
+      "tag": "vigilance"
+    },
+    {
+      "method": "POST",
+      "path": "/api/vigilance/events",
+      "handler": "createEvent",
+      "tag": "vigilance"
+    },
+    {
+      "method": "POST",
+      "path": "/api/vigilance/events/import-icsr",
+      "handler": "importIcsr",
+      "tag": "vigilance"
+    },
+    {
+      "method": "GET",
+      "path": "/api/vigilance/psur",
+      "handler": "listPsur",
+      "tag": "vigilance"
+    },
+    {
+      "method": "GET",
+      "path": "/api/vigilance/compensation",
+      "handler": "listClaims",
+      "tag": "vigilance"
+    },
+    {
+      "method": "GET",
+      "path": "/api/public/alerts",
+      "handler": "publicAlerts",
+      "tag": "enforcement"
+    },
+    {
+      "method": "GET",
+      "path": "/api/enforcement/stats",
+      "handler": "stats",
+      "tag": "enforcement"
+    },
+    {
+      "method": "GET",
+      "path": "/api/enforcement/cases",
+      "handler": "listCases",
+      "tag": "enforcement"
+    },
+    {
+      "method": "POST",
+      "path": "/api/enforcement/cases",
+      "handler": "createCase",
+      "tag": "enforcement"
+    },
+    {
+      "method": "GET",
+      "path": "/api/enforcement/recalls",
+      "handler": "listRecalls",
+      "tag": "enforcement"
+    },
+    {
+      "method": "POST",
+      "path": "/api/enforcement/recalls",
+      "handler": "createRecall",
+      "tag": "enforcement"
+    },
+    {
+      "method": "GET",
+      "path": "/api/enforcement/court-cases",
+      "handler": "listCourt",
+      "tag": "enforcement"
+    },
+    {
+      "method": "GET",
+      "path": "/api/grievances",
+      "handler": "list",
+      "tag": "grievances"
+    },
+    {
+      "method": "GET",
+      "path": "/api/grievances/stats",
+      "handler": "stats",
+      "tag": "grievances"
+    },
+    {
+      "method": "POST",
+      "path": "/api/grievances/public",
+      "handler": "filePublic",
+      "tag": "grievances"
+    },
+    {
+      "method": "GET",
+      "path": "/api/grievances/track/:ticketNo",
+      "handler": "track",
+      "tag": "grievances"
+    },
+    {
+      "method": "POST",
+      "path": "/api/grievances",
+      "handler": "create",
+      "tag": "grievances"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/grievances/:id",
+      "handler": "update",
+      "tag": "grievances"
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "handler": "summary",
+      "tag": "analytics"
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/dashboard",
+      "handler": "dashboard",
+      "tag": "analytics"
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/shresth",
+      "handler": "shresth",
+      "tag": "analytics"
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/report",
+      "handler": "report",
+      "tag": "analytics"
+    },
+    {
+      "method": "GET",
+      "path": "/api/verify/:referenceNo",
+      "handler": "verify",
+      "tag": "licensing"
+    },
+    {
+      "method": "GET",
+      "path": "/api/licensing/stats",
+      "handler": "stats",
+      "tag": "licensing"
+    },
+    {
+      "method": "GET",
+      "path": "/api/licenses",
+      "handler": "listLicenses",
+      "tag": "licensing"
+    },
+    {
+      "method": "GET",
+      "path": "/api/licenses/:id",
+      "handler": "getLicense",
+      "tag": "licensing"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/licenses/:id/status",
+      "handler": "setStatus",
+      "tag": "licensing"
+    },
+    {
+      "method": "GET",
+      "path": "/api/certificates",
+      "handler": "listCerts",
+      "tag": "licensing"
+    },
+    {
+      "method": "GET",
+      "path": "/api/certificates/:id",
+      "handler": "getCert",
+      "tag": "licensing"
+    },
+    {
+      "method": "GET",
+      "path": "/api/audit",
+      "handler": "findAll",
+      "tag": "audit"
+    },
+    {
+      "method": "GET",
+      "path": "/api/audit/stats",
+      "handler": "stats",
+      "tag": "audit"
+    },
+    {
+      "method": "GET",
+      "path": "/api/products",
+      "handler": "list",
+      "tag": "products"
+    },
+    {
+      "method": "GET",
+      "path": "/api/products/stats",
+      "handler": "stats",
+      "tag": "products"
+    },
+    {
+      "method": "GET",
+      "path": "/api/products/check-brand",
+      "handler": "checkBrand",
+      "tag": "products"
+    },
+    {
+      "method": "GET",
+      "path": "/api/products/:id",
+      "handler": "findOne",
+      "tag": "products"
+    },
+    {
+      "method": "POST",
+      "path": "/api/products",
+      "handler": "create",
+      "tag": "products"
+    }
+  ],
+  "entity_count": 37,
+  "route_count": 117
+}
