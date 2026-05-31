@@ -34,9 +34,7 @@ async function bootstrap() {
 
   const port = parseInt(process.env.PORT || '3001', 10);
   await app.listen(port);
-  // eslint-disable-next-line no-console
   console.log(`\n  DDRS backend running:  http://localhost:${port}/api`);
-  // eslint-disable-next-line no-console
   console.log(`  Swagger / OpenAPI:     http://localhost:${port}/api/docs\n`);
 }
 bootstrap();

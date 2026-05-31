@@ -54,6 +54,5 @@ export function batchNo(): string {
 }
 
 export function progress(label: string, count: number) {
-  // eslint-disable-next-line no-console
   console.log(`   • ${label.padEnd(34)} ${count}`);
 }

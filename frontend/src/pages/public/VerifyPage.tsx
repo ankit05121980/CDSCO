@@ -28,7 +28,6 @@ export default function VerifyPage() {
   useEffect(() => {
     const q = params.get('ref');
     if (q) runVerify(q);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const verify = (e: React.FormEvent) => {

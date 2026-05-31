@@ -1,15 +1,14 @@
-import tsparser from '@typescript-eslint/parser';
+const tsparser = require('@typescript-eslint/parser');
 
 /** Minimal flat ESLint config (ESLint v9). Type-checking is handled by tsc. */
-export default [
+module.exports = [
   { ignores: ['dist/**', 'node_modules/**'] },
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.ts'],
     languageOptions: {
       parser: tsparser,
-      ecmaVersion: 2020,
+      ecmaVersion: 2021,
       sourceType: 'module',
-      parserOptions: { ecmaFeatures: { jsx: true } },
     },
     rules: {
       'no-debugger': 'error',
