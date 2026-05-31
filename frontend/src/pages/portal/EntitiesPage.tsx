@@ -21,6 +21,21 @@ export default function EntitiesPage() {
         endpoint="/registry/organizations"
         params={{ type: type || undefined }}
         searchPlaceholder="Search by name, registration no, GSTIN…"
+        create={{
+          title: 'Register New Entity',
+          fields: [
+            { name: 'name', label: 'Entity Name', required: true },
+            { name: 'type', label: 'Type', type: 'select', options: TYPES.filter(Boolean), half: true },
+            { name: 'registrationNo', label: 'Registration No', required: true, half: true },
+            { name: 'gstin', label: 'GSTIN', half: true },
+            { name: 'pan', label: 'PAN', half: true },
+            { name: 'stateName', label: 'State', half: true },
+            { name: 'city', label: 'City', half: true },
+            { name: 'contactPerson', label: 'Contact Person', half: true },
+            { name: 'email', label: 'Email', half: true },
+            { name: 'phone', label: 'Phone', half: true },
+          ],
+        }}
         toolbar={
           <select className="select" value={type} onChange={(e) => setType(e.target.value)}>
             {TYPES.map((t) => (

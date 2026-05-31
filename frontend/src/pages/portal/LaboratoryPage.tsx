@@ -17,6 +17,17 @@ export default function LaboratoryPage() {
               <DataTable
                 endpoint="/laboratory/samples"
                 searchPlaceholder="Search by reference, product, batch, lab…"
+                create={{
+                  title: 'Register Sample',
+                  fields: [
+                    { name: 'productName', label: 'Product', required: true, half: true },
+                    { name: 'category', label: 'Category', type: 'select', options: ['DRUG', 'BIOLOGICAL', 'MEDICAL_DEVICE', 'IVD', 'COSMETIC', 'VETERINARY'], half: true },
+                    { name: 'batchNo', label: 'Batch No', half: true },
+                    { name: 'manufacturerName', label: 'Manufacturer', half: true },
+                    { name: 'sampleType', label: 'Sample Type', type: 'select', options: ['SURVEY', 'STATUTORY', 'COMPLAINT', 'REGULATORY'], half: true },
+                    { name: 'labName', label: 'Laboratory', half: true },
+                  ],
+                }}
                 columns={[
                   { key: 'referenceNo', label: 'Reference', render: (r: any) => <span className="font-mono text-xs text-navy">{r.referenceNo}</span> },
                   { key: 'productName', label: 'Product' },

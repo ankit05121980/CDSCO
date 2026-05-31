@@ -15,6 +15,17 @@ export default function InspectionsPage() {
         endpoint="/inspections"
         params={{ type: type || undefined }}
         searchPlaceholder="Search by reference, entity…"
+        detail={{ fetchUrl: (r) => `/inspections/${r.id}` }}
+        create={{
+          title: 'Schedule Inspection',
+          fields: [
+            { name: 'type', label: 'Type', type: 'select', options: TYPES.filter(Boolean) },
+            { name: 'entityName', label: 'Entity', required: true, half: true },
+            { name: 'formType', label: 'Form', type: 'select', options: ['FORM_35', 'MD_11', 'COS_11'], half: true },
+            { name: 'scheduledDate', label: 'Scheduled Date', type: 'date', half: true },
+            { name: 'stateCode', label: 'State Code', half: true },
+          ],
+        }}
         toolbar={
           <select className="select" value={type} onChange={(e) => setType(e.target.value)}>
             {TYPES.map((t) => <option key={t} value={t}>{t ? titleCase(t) : 'All types'}</option>)}

@@ -11,7 +11,7 @@ import { IntegrationLog } from '../../../modules/integrations/integration-log.en
 import { INTEGRATION_SYSTEMS } from '../../../modules/integrations/integrations.catalog';
 import { Product } from '../../../modules/products/product.entity';
 import { Organization } from '../../../modules/registry/entities/organization.entity';
-import { batchNo, pick, progress } from '../seed-utils';
+import { batchNo, indianName, pick, progress } from '../seed-utils';
 import { STATES } from '../india-data';
 
 export async function seedSupplyChain(ds: DataSource) {
@@ -146,7 +146,7 @@ export async function seedGrievances(ds: DataSource) {
       category: pick(categories),
       subject: pick(subjects),
       description: faker.lorem.sentences(2),
-      complainantName: faker.person.fullName(),
+      complainantName: indianName(),
       complainantEmail: faker.internet.email().toLowerCase(),
       complainantType: pick(['CITIZEN', 'INDUSTRY', 'OFFICER']),
       status,

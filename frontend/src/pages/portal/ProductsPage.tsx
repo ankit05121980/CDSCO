@@ -18,6 +18,19 @@ export default function ProductsPage() {
         endpoint="/products"
         params={{ category: category || undefined }}
         searchPlaceholder="Search by name, brand, registration no…"
+        create={{
+          title: 'Register New Product',
+          fields: [
+            { name: 'name', label: 'Name / Generic', required: true, half: true },
+            { name: 'brandName', label: 'Brand Name', required: true, half: true },
+            { name: 'category', label: 'Category', type: 'select', options: CATEGORIES.filter(Boolean), half: true },
+            { name: 'registrationNo', label: 'Registration No', required: true, half: true },
+            { name: 'dosageForm', label: 'Dosage Form', half: true },
+            { name: 'strength', label: 'Strength', half: true },
+            { name: 'manufacturerName', label: 'Manufacturer' },
+            { name: 'composition', label: 'Composition', type: 'textarea' },
+          ],
+        }}
         toolbar={
           <select className="select" value={category} onChange={(e) => setCategory(e.target.value)}>
             {CATEGORIES.map((c) => (

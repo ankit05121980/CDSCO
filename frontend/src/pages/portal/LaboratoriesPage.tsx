@@ -18,6 +18,20 @@ export default function LaboratoriesPage() {
         endpoint="/registry/laboratories"
         params={{ type: type || undefined }}
         searchPlaceholder="Search by name, registration no, NABL no…"
+        create={{
+          title: 'Onboard New Laboratory',
+          fields: [
+            { name: 'name', label: 'Laboratory Name', required: true },
+            { name: 'type', label: 'Type', type: 'select', options: ['CENTRAL', 'STATE', 'PRIVATE'], half: true },
+            { name: 'registrationNo', label: 'Registration No', required: true, half: true },
+            { name: 'stateName', label: 'State', half: true },
+            { name: 'city', label: 'City', half: true },
+            { name: 'nablAccreditationNo', label: 'NABL Accreditation No', half: true },
+            { name: 'contactPerson', label: 'Contact Person', half: true },
+            { name: 'email', label: 'Email', half: true },
+            { name: 'phone', label: 'Phone', half: true },
+          ],
+        }}
         toolbar={
           <select className="select" value={type} onChange={(e) => setType(e.target.value)}>
             {TYPES.map((t) => (

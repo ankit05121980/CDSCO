@@ -17,6 +17,19 @@ export default function EnforcementPage() {
               <DataTable
                 endpoint="/enforcement/cases"
                 searchPlaceholder="Search by product, brand, batch, manufacturer…"
+                create={{
+                  title: 'New Enforcement Case',
+                  fields: [
+                    { name: 'type', label: 'Type', type: 'select', options: ['SAMPLING', 'NSQ', 'SPURIOUS', 'INVESTIGATION', 'QUALITY_MONITORING'] },
+                    { name: 'productName', label: 'Product', required: true, half: true },
+                    { name: 'brandName', label: 'Brand', half: true },
+                    { name: 'batchNo', label: 'Batch No', half: true },
+                    { name: 'manufacturerName', label: 'Manufacturer', half: true },
+                    { name: 'classification', label: 'Classification', type: 'select', options: ['NSQ', 'SPURIOUS', 'ADULTERATED', 'MISBRANDED', 'STANDARD'], half: true },
+                    { name: 'severity', label: 'Severity', type: 'select', options: ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'], half: true },
+                    { name: 'actionTaken', label: 'Action Taken', type: 'textarea' },
+                  ],
+                }}
                 columns={[
                   { key: 'referenceNo', label: 'Reference', render: (r: any) => <span className="font-mono text-xs text-navy">{r.referenceNo}</span> },
                   { key: 'type', label: 'Type', render: (r: any) => titleCase(r.type) },
@@ -36,6 +49,19 @@ export default function EnforcementPage() {
               <DataTable
                 endpoint="/enforcement/recalls"
                 searchPlaceholder="Search recalls…"
+                create={{
+                  title: 'Initiate Product Recall',
+                  fields: [
+                    { name: 'productName', label: 'Product', required: true },
+                    { name: 'brandName', label: 'Brand', half: true },
+                    { name: 'batchNo', label: 'Batch No', half: true },
+                    { name: 'manufacturerName', label: 'Manufacturer', half: true },
+                    { name: 'classification', label: 'Class', type: 'select', options: ['CLASS_I', 'CLASS_II', 'CLASS_III'], half: true },
+                    { name: 'quantitySupplied', label: 'Qty Supplied', type: 'number', half: true },
+                    { name: 'quantityRecalled', label: 'Qty Recalled', type: 'number', half: true },
+                    { name: 'reason', label: 'Reason', type: 'textarea' },
+                  ],
+                }}
                 columns={[
                   { key: 'referenceNo', label: 'Reference', render: (r: any) => <span className="font-mono text-xs text-navy">{r.referenceNo}</span> },
                   { key: 'productName', label: 'Product' },

@@ -15,6 +15,19 @@ export default function ClinicalTrialsPage() {
         endpoint="/clinical-trials"
         params={{ type: type || undefined }}
         searchPlaceholder="Search by reference, title, sponsor, CTRI…"
+        detail={{ fetchUrl: (r) => `/clinical-trials/${r.id}` }}
+        create={{
+          title: 'New Clinical Trial Application',
+          fields: [
+            { name: 'title', label: 'Study Title', required: true },
+            { name: 'type', label: 'Type', type: 'select', options: TYPES.filter(Boolean), half: true },
+            { name: 'phase', label: 'Phase', type: 'select', options: ['I', 'II', 'III', 'IV'], half: true },
+            { name: 'sponsorName', label: 'Sponsor', half: true },
+            { name: 'drugName', label: 'Investigational Drug', half: true },
+            { name: 'therapeuticArea', label: 'Therapeutic Area', half: true },
+            { name: 'subjectsPlanned', label: 'Subjects Planned', type: 'number', half: true },
+          ],
+        }}
         toolbar={
           <select className="select" value={type} onChange={(e) => setType(e.target.value)}>
             {TYPES.map((t) => <option key={t} value={t}>{t ? titleCase(t) : 'All types'}</option>)}

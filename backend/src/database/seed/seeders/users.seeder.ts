@@ -6,6 +6,7 @@ import { Role } from '../../../common/enums';
 import {
   DEMO_PASSWORD,
   aadhaarMasked,
+  indianName,
   indianPhone,
   pick,
   progress,
@@ -112,7 +113,7 @@ function mkUser(
   role: Role,
   extra: Partial<User>,
 ): Partial<User> {
-  const name = faker.person.fullName();
+  const name = indianName();
   const slug = name.toLowerCase().replace(/[^a-z]+/g, '.');
   return {
     email: `${slug}.${faker.string.numeric(4)}@ddrs.gov.in`,

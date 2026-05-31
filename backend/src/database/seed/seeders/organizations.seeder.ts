@@ -15,7 +15,7 @@ import {
   INDIAN_CITIES,
   STATES,
 } from '../india-data';
-import { gstin, indianPhone, pan, pick, pickMany, progress } from '../seed-utils';
+import { gstin, indianName, indianPhone, pan, pick, pickMany, progress } from '../seed-utils';
 
 const TYPE_COUNTS: [OrganizationType, number][] = [
   [OrganizationType.MANUFACTURER, 600],
@@ -78,7 +78,7 @@ function mkOrg(type: OrganizationType): Partial<Organization> {
     pincode: faker.string.numeric(6),
     latitude: +faker.location.latitude({ min: 8, max: 34 }),
     longitude: +faker.location.longitude({ min: 68, max: 92 }),
-    contactPerson: faker.person.fullName(),
+    contactPerson: indianName(),
     email: faker.internet.email().toLowerCase(),
     phone: indianPhone(),
     website: `https://www.${faker.internet.domainName()}`,

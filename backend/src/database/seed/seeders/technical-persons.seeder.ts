@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm';
 import { faker } from '@faker-js/faker';
 import { TechnicalPerson } from '../../../modules/registry/entities/technical-person.entity';
 import { Organization } from '../../../modules/registry/entities/organization.entity';
-import { aadhaarMasked, indianPhone, pick, progress } from '../seed-utils';
+import { aadhaarMasked, indianName, indianPhone, pick, progress } from '../seed-utils';
 
 const QUALIFICATIONS = [
   'B.Pharm', 'M.Pharm', 'B.Sc (Chemistry)', 'M.Sc (Microbiology)',
@@ -22,7 +22,7 @@ export async function seedTechnicalPersons(ds: DataSource) {
   for (let i = 0; i < 600; i++) {
     const org = pick(orgs);
     batch.push({
-      name: faker.person.fullName(),
+      name: indianName(),
       registrationNo: `TP-${String(seq++).padStart(5, '0')}`,
       qualification: pick(QUALIFICATIONS),
       designation: pick(['Production Head', 'QA Manager', 'QC Chemist', 'Competent Technical Staff', 'Analytical Chemist']),
@@ -40,7 +40,7 @@ export async function seedTechnicalPersons(ds: DataSource) {
   // 120 available (not engaged)
   for (let i = 0; i < 120; i++) {
     batch.push({
-      name: faker.person.fullName(),
+      name: indianName(),
       registrationNo: `TP-${String(seq++).padStart(5, '0')}`,
       qualification: pick(QUALIFICATIONS),
       email: faker.internet.email().toLowerCase(),

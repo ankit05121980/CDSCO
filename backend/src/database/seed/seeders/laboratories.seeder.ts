@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 import { Laboratory } from '../../../modules/registry/entities/laboratory.entity';
 import { EntityStatus, LabType, ProductCategory } from '../../../common/enums';
 import { CENTRAL_LABS, INDIAN_CITIES, STATES } from '../india-data';
-import { indianPhone, pick, pickMany, progress } from '../seed-utils';
+import { indianName, indianPhone, pick, pickMany, progress } from '../seed-utils';
 
 let seq = 1;
 
@@ -53,7 +53,7 @@ function mkLab(
     nablAccredited: nabl,
     nablAccreditationNo: nabl ? `NABL/${faker.string.numeric(5)}` : undefined,
     testingScope: pickMany(Object.values(ProductCategory), 3),
-    contactPerson: faker.person.fullName(),
+    contactPerson: indianName(),
     email: faker.internet.email().toLowerCase(),
     phone: indianPhone(),
     status: EntityStatus.ACTIVE,

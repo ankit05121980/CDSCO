@@ -15,7 +15,7 @@ import { Organization } from '../../../modules/registry/entities/organization.en
 import { Product } from '../../../modules/products/product.entity';
 import { Laboratory } from '../../../modules/registry/entities/laboratory.entity';
 import { Jurisdiction, ProductCategory } from '../../../common/enums';
-import { batchNo, pick, progress } from '../seed-utils';
+import { batchNo, indianName, pick, progress } from '../seed-utils';
 import { BIOLOGICAL_NAMES, INDIAN_CITIES, STATES, THERAPEUTIC_AREAS } from '../india-data';
 
 export async function seedInspections(ds: DataSource) {
@@ -49,8 +49,8 @@ export async function seedInspections(ds: DataSource) {
         scheduledDate: faker.date.recent({ days: 200 }),
         conductedDate: completed ? faker.date.recent({ days: 120 }) : undefined,
         inspectors: [
-          { name: faker.person.fullName(), role: 'Drug Inspector', masked: !completed },
-          ...(type === 'JOINT' ? [{ name: faker.person.fullName(), role: 'State Inspector', masked: !completed }] : []),
+          { name: indianName(), role: 'Drug Inspector', masked: !completed },
+          ...(type === 'JOINT' ? [{ name: indianName(), role: 'State Inspector', masked: !completed }] : []),
         ],
         masked: !completed,
         status,
@@ -187,7 +187,7 @@ export async function seedLaboratory(ds: DataSource) {
         category: p?.category,
         batchNo: batchNo(),
         manufacturerName: p?.manufacturerName,
-        drawnByName: faker.person.fullName(),
+        drawnByName: indianName(),
         drawnDate: faker.date.recent({ days: 200 }),
         labId: lab?.id,
         labName: lab?.name,
@@ -212,7 +212,7 @@ export async function seedLaboratory(ds: DataSource) {
       productName: s.productName,
       labId: s.labId,
       labName: s.labName,
-      analystName: faker.person.fullName(),
+      analystName: indianName(),
       result,
       parameters: [
         { name: 'Description', specification: 'Complies', observed: 'Complies', pass: true },
@@ -304,7 +304,7 @@ export async function seedClinicalTrials(ds: DataSource) {
         siteName: `${pick(['AIIMS', 'PGIMER', 'CMC', 'KEM Hospital', 'Apollo', 'Fortis'])}, ${pick(INDIAN_CITIES)}`,
         city: pick(INDIAN_CITIES),
         stateCode: pick(STATES).code,
-        principalInvestigator: 'Dr. ' + faker.person.fullName(),
+        principalInvestigator: 'Dr. ' + indianName(),
         ethicsCommittee: `${faker.company.name()} Ethics Committee`,
         subjectsEnrolled: faker.number.int({ min: 0, max: 300 }),
         status: pick(['ACTIVE', 'COMPLETED', 'SUSPENDED']),
@@ -375,7 +375,7 @@ export async function seedVigilance(ds: DataSource) {
     claims.push({
       referenceNo: `CDSCO/COMP/2026/${String(kseq++).padStart(6, '0')}`,
       trialRef: `CDSCO/CT/2026/${String(faker.number.int({ min: 1, max: 620 })).padStart(6, '0')}`,
-      claimantName: faker.person.fullName(),
+      claimantName: indianName(),
       amountClaimed: claimed,
       amountAwarded: status === 'AWARDED' ? Math.floor(claimed * faker.number.float({ min: 0.4, max: 1 })) : 0,
       status,

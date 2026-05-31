@@ -15,6 +15,15 @@ export default function ReturnsPage() {
         endpoint="/returns"
         params={{ type: type || undefined }}
         searchPlaceholder="Search by reference, entity, period…"
+        create={{
+          title: 'File a Return',
+          fields: [
+            { name: 'organizationName', label: 'Entity', required: true },
+            { name: 'type', label: 'Return Type', type: 'select', options: ['PRODUCTION', 'SALES', 'CONSUMPTION', 'STOCK'], half: true },
+            { name: 'period', label: 'Period (e.g. Q1-2026)', required: true, half: true },
+            { name: 'totalValue', label: 'Total Value (₹)', type: 'number' },
+          ],
+        }}
         toolbar={
           <select className="select" value={type} onChange={(e) => setType(e.target.value)}>
             {TYPES.map((t) => <option key={t} value={t}>{t ? titleCase(t) : 'All types'}</option>)}

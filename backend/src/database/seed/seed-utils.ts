@@ -9,6 +9,30 @@ export function pick<T>(arr: T[]): T {
   return arr[Math.floor(faker.number.float() * arr.length) % arr.length];
 }
 
+const INDIAN_FIRST_NAMES = [
+  'Aarav', 'Vivaan', 'Aditya', 'Vihaan', 'Arjun', 'Reyansh', 'Krishna', 'Ishaan',
+  'Rohan', 'Kabir', 'Ananya', 'Diya', 'Aadhya', 'Saanvi', 'Priya', 'Ishita',
+  'Riya', 'Meera', 'Kavya', 'Anjali', 'Rahul', 'Amit', 'Sanjay', 'Vijay',
+  'Rajesh', 'Sunil', 'Anil', 'Manoj', 'Deepak', 'Suresh', 'Ramesh', 'Pooja',
+  'Neha', 'Swati', 'Sneha', 'Kavita', 'Sunita', 'Lakshmi', 'Geeta', 'Shreya',
+  'Karthik', 'Aravind', 'Naveen', 'Praveen', 'Harish', 'Girish', 'Mahesh',
+  'Nikhil', 'Siddharth', 'Varun', 'Aishwarya', 'Divya', 'Nandini', 'Pallavi',
+];
+
+const INDIAN_LAST_NAMES = [
+  'Sharma', 'Verma', 'Gupta', 'Patel', 'Reddy', 'Nair', 'Iyer', 'Menon',
+  'Rao', 'Singh', 'Kumar', 'Joshi', 'Desai', 'Shah', 'Mehta', 'Chopra',
+  'Malhotra', 'Banerjee', 'Mukherjee', 'Chatterjee', 'Das', 'Bose', 'Naidu',
+  'Pillai', 'Kulkarni', 'Deshpande', 'Bhat', 'Hegde', 'Pandey', 'Mishra',
+  'Tiwari', 'Trivedi', 'Agarwal', 'Bansal', 'Saxena', 'Chauhan', 'Yadav',
+  'Khanna', 'Kapoor', 'Sethi', 'Bhatt', 'Goswami', 'Sinha', 'Chandra',
+];
+
+/** Returns a realistic full Indian name. */
+export function indianName(): string {
+  return `${pick(INDIAN_FIRST_NAMES)} ${pick(INDIAN_LAST_NAMES)}`;
+}
+
 export function pickMany<T>(arr: T[], n: number): T[] {
   return faker.helpers.arrayElements(arr, n);
 }

@@ -15,6 +15,16 @@ export default function GrievancesPage() {
         endpoint="/grievances"
         params={{ status: status || undefined }}
         searchPlaceholder="Search by ticket, subject, complainant…"
+        create={{
+          title: 'Log Grievance',
+          fields: [
+            { name: 'category', label: 'Category', type: 'select', options: ['PRODUCT_QUALITY', 'COUNTERFEIT', 'SERVICE', 'LICENSING', 'OTHER'] },
+            { name: 'subject', label: 'Subject', required: true },
+            { name: 'description', label: 'Description', type: 'textarea', required: true },
+            { name: 'complainantName', label: 'Complainant', half: true },
+            { name: 'priority', label: 'Priority', type: 'select', options: ['LOW', 'NORMAL', 'HIGH', 'URGENT'], half: true },
+          ],
+        }}
         toolbar={
           <select className="select" value={status} onChange={(e) => setStatus(e.target.value)}>
             {STATUSES.map((s) => <option key={s} value={s}>{s ? titleCase(s) : 'All statuses'}</option>)}
