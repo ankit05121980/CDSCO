@@ -24,6 +24,12 @@ import EnforcementPage from './pages/portal/EnforcementPage';
 import LaboratoryPage from './pages/portal/LaboratoryPage';
 import ClinicalTrialsPage from './pages/portal/ClinicalTrialsPage';
 import VigilancePage from './pages/portal/VigilancePage';
+import SupplyChainPage from './pages/portal/SupplyChainPage';
+import ReturnsPage from './pages/portal/ReturnsPage';
+import GrievancesPage from './pages/portal/GrievancesPage';
+import IntegrationsPage from './pages/portal/IntegrationsPage';
+import GrievancePage from './pages/public/GrievancePage';
+import RegistriesPage from './pages/public/RegistriesPage';
 
 const pub = (el: JSX.Element) => <PublicLayout>{el}</PublicLayout>;
 const portal = (el: JSX.Element) => <PortalLayout>{el}</PortalLayout>;
@@ -35,8 +41,8 @@ export default function App() {
       <Route path="/" element={pub(<HomePage />)} />
       <Route path="/verify" element={pub(<VerifyPage />)} />
       <Route path="/alerts" element={pub(<AlertsPage />)} />
-      <Route path="/registries" element={pub(<PlaceholderPage title="Public Registries" />)} />
-      <Route path="/grievance" element={pub(<PlaceholderPage title="File a Grievance" />)} />
+      <Route path="/registries" element={pub(<RegistriesPage />)} />
+      <Route path="/grievance" element={pub(<GrievancePage />)} />
       <Route path="/login" element={<LoginPage />} />
 
       {/* Portal */}
@@ -49,18 +55,18 @@ export default function App() {
       <Route path="/app/enforcement" element={portal(<EnforcementPage />)} />
       <Route path="/app/vigilance" element={portal(<VigilancePage />)} />
       <Route path="/app/laboratory" element={portal(<LaboratoryPage />)} />
-      <Route path="/app/supply-chain" element={portal(<ModulePlaceholder title="Supply Chain" />)} />
-      <Route path="/app/returns" element={portal(<ModulePlaceholder title="Returns Filing" />)} />
+      <Route path="/app/supply-chain" element={portal(<SupplyChainPage />)} />
+      <Route path="/app/returns" element={portal(<ReturnsPage />)} />
       <Route path="/app/payments" element={portal(<PaymentsPage />)} />
       <Route path="/app/entities" element={portal(<EntitiesPage />)} />
       <Route path="/app/products" element={portal(<ProductsPage />)} />
       <Route path="/app/laboratories" element={portal(<LaboratoriesPage />)} />
       <Route path="/app/technical-persons" element={portal(<TechnicalPersonsPage />)} />
-      <Route path="/app/grievances" element={portal(<ModulePlaceholder title="Grievances" />)} />
+      <Route path="/app/grievances" element={portal(<GrievancesPage />)} />
       <Route path="/app/court-cases" element={portal(<EnforcementPage />)} />
       <Route path="/app/shresth" element={portal(<ModulePlaceholder title="SHRESTH Index" />)} />
       <Route path="/app/analytics" element={portal(<ModulePlaceholder title="Analytics & MIS" />)} />
-      <Route path="/app/integrations" element={portal(<ModulePlaceholder title="Integrations" />)} />
+      <Route path="/app/integrations" element={portal(<IntegrationsPage />)} />
       <Route path="/app/users" element={portal(<UsersPage />)} />
       <Route path="/app/audit" element={portal(<AuditPage />)} />
       <Route path="/app/notifications" element={portal(<NotificationsPage />)} />

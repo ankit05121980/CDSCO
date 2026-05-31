@@ -23,6 +23,10 @@ import { EnforcementModule } from './modules/enforcement/enforcement.module';
 import { LaboratoryModule } from './modules/laboratory/laboratory.module';
 import { ClinicalTrialsModule } from './modules/clinical-trials/clinical-trials.module';
 import { VigilanceModule } from './modules/vigilance/vigilance.module';
+import { SupplyChainModule } from './modules/supply-chain/supply-chain.module';
+import { ReturnsModule } from './modules/returns/returns.module';
+import { GrievancesModule } from './modules/grievances/grievances.module';
+import { IntegrationsModule } from './modules/integrations/integrations.module';
 
 @Module({
   imports: [
@@ -47,6 +51,10 @@ import { VigilanceModule } from './modules/vigilance/vigilance.module';
     LaboratoryModule,
     ClinicalTrialsModule,
     VigilanceModule,
+    SupplyChainModule,
+    ReturnsModule,
+    GrievancesModule,
+    IntegrationsModule,
   ],
   controllers: [HealthController],
   providers: [

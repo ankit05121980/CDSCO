@@ -15,6 +15,12 @@ import {
   seedClinicalTrials,
   seedVigilance,
 } from './seeders/operations.seeder';
+import {
+  seedSupplyChain,
+  seedReturns,
+  seedGrievances,
+  seedIntegrationLogs,
+} from './seeders/supply-returns-grievance.seeder';
 
 /**
  * DDRS seed orchestrator.
@@ -46,6 +52,10 @@ async function run() {
   await seedLaboratory(ds);
   await seedClinicalTrials(ds);
   await seedVigilance(ds);
+  await seedSupplyChain(ds);
+  await seedReturns(ds);
+  await seedGrievances(ds);
+  await seedIntegrationLogs(ds);
 
   await ds.destroy();
   const secs = ((Date.now() - startedAt) / 1000).toFixed(1);
