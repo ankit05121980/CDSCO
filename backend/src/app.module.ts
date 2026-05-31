@@ -13,6 +13,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
 import { DocumentsModule } from './modules/documents/documents.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
+import { RegistryModule } from './modules/registry/registry.module';
+import { ProductsModule } from './modules/products/products.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { AnalyticsModule } from './modules/analytics/analytics.module';
     NotificationsModule,
     DocumentsModule,
     AnalyticsModule,
+    RegistryModule,
+    ProductsModule,
   ],
   controllers: [HealthController],
   providers: [

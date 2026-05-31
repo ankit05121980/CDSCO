@@ -1,6 +1,10 @@
 import 'reflect-metadata';
 import { AppDataSource } from '../../config/data-source';
 import { seedUsers } from './seeders/users.seeder';
+import { seedOrganizations } from './seeders/organizations.seeder';
+import { seedLaboratories } from './seeders/laboratories.seeder';
+import { seedTechnicalPersons } from './seeders/technical-persons.seeder';
+import { seedProducts } from './seeders/products.seeder';
 
 /**
  * DDRS seed orchestrator.
@@ -20,6 +24,10 @@ async function run() {
   // eslint-disable-next-line no-console
   console.log('  Seeded record counts:');
   await seedUsers(ds);
+  await seedOrganizations(ds);
+  await seedLaboratories(ds);
+  await seedTechnicalPersons(ds);
+  await seedProducts(ds);
 
   await ds.destroy();
   const secs = ((Date.now() - startedAt) / 1000).toFixed(1);

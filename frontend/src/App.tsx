@@ -9,6 +9,10 @@ import UsersPage from './pages/portal/UsersPage';
 import AuditPage from './pages/portal/AuditPage';
 import NotificationsPage from './pages/portal/NotificationsPage';
 import ModulePlaceholder from './pages/portal/ModulePlaceholder';
+import EntitiesPage from './pages/portal/EntitiesPage';
+import ProductsPage from './pages/portal/ProductsPage';
+import LaboratoriesPage from './pages/portal/LaboratoriesPage';
+import TechnicalPersonsPage from './pages/portal/TechnicalPersonsPage';
 
 const pub = (el: JSX.Element) => <PublicLayout>{el}</PublicLayout>;
 const portal = (el: JSX.Element) => <PortalLayout>{el}</PortalLayout>;
@@ -36,8 +40,10 @@ export default function App() {
       <Route path="/app/supply-chain" element={portal(<ModulePlaceholder title="Supply Chain" />)} />
       <Route path="/app/returns" element={portal(<ModulePlaceholder title="Returns Filing" />)} />
       <Route path="/app/payments" element={portal(<ModulePlaceholder title="Payments" />)} />
-      <Route path="/app/entities" element={portal(<ModulePlaceholder title="Registries" />)} />
-      <Route path="/app/products" element={portal(<ModulePlaceholder title="Products" />)} />
+      <Route path="/app/entities" element={portal(<EntitiesPage />)} />
+      <Route path="/app/products" element={portal(<ProductsPage />)} />
+      <Route path="/app/laboratories" element={portal(<LaboratoriesPage />)} />
+      <Route path="/app/technical-persons" element={portal(<TechnicalPersonsPage />)} />
       <Route path="/app/grievances" element={portal(<ModulePlaceholder title="Grievances" />)} />
       <Route path="/app/court-cases" element={portal(<ModulePlaceholder title="Court Cases" />)} />
       <Route path="/app/shresth" element={portal(<ModulePlaceholder title="SHRESTH Index" />)} />

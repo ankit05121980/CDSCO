@@ -114,3 +114,31 @@ export enum Jurisdiction {
   STATE = 'STATE',
   JOINT = 'JOINT',
 }
+
+/** Types of regulated entities/organizations in the registry. */
+export enum OrganizationType {
+  MANUFACTURER = 'MANUFACTURER',
+  IMPORTER = 'IMPORTER',
+  EXPORTER = 'EXPORTER',
+  WHOLESALER = 'WHOLESALER',
+  RETAILER = 'RETAILER',
+  CRO = 'CRO',
+  ETHICS_COMMITTEE = 'ETHICS_COMMITTEE',
+  BLOOD_CENTRE = 'BLOOD_CENTRE',
+  BA_BE_CENTRE = 'BA_BE_CENTRE',
+  CONSULTANT = 'CONSULTANT',
+  MARKETER = 'MARKETER',
+}
+
+export enum EntityStatus {
+  ACTIVE = 'ACTIVE',
+  PENDING = 'PENDING',
+  SUSPENDED = 'SUSPENDED',
+  CANCELLED = 'CANCELLED',
+}
+
+export enum LabType {
+  CENTRAL = 'CENTRAL',
+  STATE = 'STATE',
+  PRIVATE = 'PRIVATE',
+}
