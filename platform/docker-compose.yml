@@ -1,0 +1,85 @@
+name: athena
+
+# Full local stack for the Athena platform. The API and Web build from source;
+# Postgres, Redis, ChromaDB and Elasticsearch back the production-grade services.
+services:
+  api:
+    build: ./services/api
+    environment:
+      NODE_ENV: production
+      PORT: 3002
+      DB_TYPE: postgres
+      PGHOST: postgres
+      PGPORT: 5432
+      PGUSER: athena
+      PGPASSWORD: athena
+      PGDATABASE: athena
+      DB_SYNC: 'true'
+      AI_PROVIDER: ${AI_PROVIDER:-mock}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      VECTOR_STORE: ${VECTOR_STORE:-memory}
+      CHROMA_URL: http://chroma:8000
+      CORS_ORIGINS: http://localhost:3000
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:-dev-access-secret-change-me}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-dev-refresh-secret-change-me}
+    ports:
+      - '3002:3002'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  web:
+    build: ./apps/web
+    environment:
+      API_PROXY_URL: http://api:3002
+    ports:
+      - '3000:3000'
+    depends_on:
+      - api
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: athena
+      POSTGRES_PASSWORD: athena
+      POSTGRES_DB: athena
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U athena']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    command: ['redis-server', '--save', '', '--appendonly', 'no']
+    ports:
+      - '6379:6379'
+
+  chroma:
+    image: chromadb/chroma:0.5.23
+    ports:
+      - '8000:8000'
+    volumes:
+      - chromadata:/chroma/chroma
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: 'false'
+      ES_JAVA_OPTS: '-Xms512m -Xmx512m'
+    ports:
+      - '9200:9200'
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+volumes:
+  pgdata:
+  chromadata:
+  esdata:
