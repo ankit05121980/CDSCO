@@ -1,0 +1,9 @@
+node_modules
+dist
+coverage
+*.sqlite
+*.sqlite-journal
+.env
+*.log
+.next
+out
