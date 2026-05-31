@@ -15,7 +15,7 @@ import { Organization } from '../../../modules/registry/entities/organization.en
 import { Product } from '../../../modules/products/product.entity';
 import { Laboratory } from '../../../modules/registry/entities/laboratory.entity';
 import { Jurisdiction, ProductCategory } from '../../../common/enums';
-import { batchNo, indianName, pick, progress } from '../seed-utils';
+import { batchNo, indianCompanyName, indianName, pick, progress } from '../seed-utils';
 import { BIOLOGICAL_NAMES, INDIAN_CITIES, STATES, THERAPEUTIC_AREAS } from '../india-data';
 
 export async function seedInspections(ds: DataSource) {
@@ -153,7 +153,7 @@ export async function seedEnforcement(ds: DataSource) {
     courts.push({
       caseNo: `CC/${faker.number.int({ min: 100, max: 9999 })}/2026/${kseq++}`,
       court: pick(['CJM Court', 'Sessions Court', 'High Court', 'District Court']) + ', ' + pick(INDIAN_CITIES),
-      parties: `State Drug Control vs ${faker.company.name()}`,
+      parties: `State Drug Control vs ${indianCompanyName()}`,
       type: 'DRUGS_COSMETICS_ACT',
       status: pick(['FILED', 'HEARING', 'JUDGEMENT', 'DISPOSED', 'CONVICTED', 'ACQUITTED']),
       filedDate: faker.date.past({ years: 3 }),
@@ -234,7 +234,7 @@ export async function seedLaboratory(ds: DataSource) {
       referenceNo: `CDSCO/BRC/2026/${String(bseq++).padStart(6, '0')}`,
       productName: pick(BIOLOGICAL_NAMES),
       batchNo: batchNo(),
-      manufacturerName: faker.company.name(),
+      manufacturerName: indianCompanyName(),
       labName: 'Central Drugs Laboratory, Kasauli',
       status: pick(['RELEASED', 'RELEASED', 'REJECTED', 'UNDER_SCRUTINY']),
       slpScrutinised: faker.datatype.boolean({ probability: 0.85 }),
@@ -279,7 +279,7 @@ export async function seedClinicalTrials(ds: DataSource) {
         type: pick(['CLINICAL_TRIAL', 'GCT', 'BA_BE', 'PMS', 'ACADEMIC', 'FIELD_VET']),
         phase: pick(['I', 'II', 'III', 'IV']),
         sponsorName: sponsor?.name,
-        croName: faker.company.name() + ' CRO',
+        croName: indianCompanyName() + ' CRO',
         drugName: pick(['Investigational New Drug', 'Subsequent New Drug', 'Biosimilar']),
         therapeuticArea: pick(THERAPEUTIC_AREAS),
         status: pick(['SUBMITTED', 'APPROVED', 'ONGOING', 'COMPLETED', 'SUSPENDED', 'REJECTED']),
@@ -305,7 +305,7 @@ export async function seedClinicalTrials(ds: DataSource) {
         city: pick(INDIAN_CITIES),
         stateCode: pick(STATES).code,
         principalInvestigator: 'Dr. ' + indianName(),
-        ethicsCommittee: `${faker.company.name()} Ethics Committee`,
+        ethicsCommittee: `${indianCompanyName()} Ethics Committee`,
         subjectsEnrolled: faker.number.int({ min: 0, max: 300 }),
         status: pick(['ACTIVE', 'COMPLETED', 'SUSPENDED']),
       });

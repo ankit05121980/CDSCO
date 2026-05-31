@@ -33,6 +33,31 @@ export function indianName(): string {
   return `${pick(INDIAN_FIRST_NAMES)} ${pick(INDIAN_LAST_NAMES)}`;
 }
 
+const INDIAN_BRAND_WORDS = [
+  'Bharat', 'Aarogya', 'Sanjeevani', 'Ashwini', 'Dhanvantari', 'Shree', 'Sri',
+  'Ganga', 'Yamuna', 'Himalaya', 'Sahyadri', 'Krishna', 'Surya', 'Chandra',
+  'Vedant', 'Ayur', 'Jeevan', 'Swasth', 'Nirmal', 'Amrit', 'Pratham', 'Aatma',
+  'Sankalp', 'Vishwa', 'Bharat Bio', 'Deccan', 'Konkan', 'Malabar', 'Ganesh',
+];
+
+/** Indian-style private testing-laboratory name. */
+export function indianLabName(): string {
+  const styles = [
+    () => `${pick(INDIAN_BRAND_WORDS)} Analytical Laboratories`,
+    () => `${pick(INDIAN_BRAND_WORDS)} Diagnostics & Research`,
+    () => `${pick(INDIAN_LAST_NAMES)} Pharma Testing Labs`,
+    () => `${pick(INDIAN_BRAND_WORDS)} Quality Control Labs`,
+    () => `${pick(INDIAN_BRAND_WORDS)} Bio-Analytical Services`,
+  ];
+  return pick(styles)();
+}
+
+/** Indian-style company / firm name. */
+export function indianCompanyName(): string {
+  const suffixes = ['Pharmaceuticals Pvt Ltd', 'Healthcare Ltd', 'Laboratories Ltd', 'Biotech Pvt Ltd', 'Lifesciences Ltd', 'Remedies Pvt Ltd'];
+  return `${pick(INDIAN_BRAND_WORDS)} ${pick(suffixes)}`;
+}
+
 export function pickMany<T>(arr: T[], n: number): T[] {
   return faker.helpers.arrayElements(arr, n);
 }

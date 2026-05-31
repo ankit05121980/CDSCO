@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 import { Laboratory } from '../../../modules/registry/entities/laboratory.entity';
 import { EntityStatus, LabType, ProductCategory } from '../../../common/enums';
 import { CENTRAL_LABS, INDIAN_CITIES, STATES } from '../india-data';
-import { indianName, indianPhone, pick, pickMany, progress } from '../seed-utils';
+import { indianLabName, indianName, indianPhone, pick, pickMany, progress } from '../seed-utils';
 
 let seq = 1;
 
@@ -25,7 +25,7 @@ export async function seedLaboratories(ds: DataSource) {
   // Private labs — to comfortably exceed 500 total
   for (let i = 0; i < 480; i++) {
     const st = pick(STATES);
-    batch.push(mkLab(LabType.PRIVATE, `${faker.company.name()} Analytical Labs`, st.code, st.name));
+    batch.push(mkLab(LabType.PRIVATE, `${indianLabName()}, ${pick(INDIAN_CITIES)}`, st.code, st.name));
   }
 
   await repo.save(repo.create(batch), { chunk: 300 });
