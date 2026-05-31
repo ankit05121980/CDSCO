@@ -8,9 +8,11 @@ export default defineConfig({
     alias: { '@': path.resolve(__dirname, './src') },
   },
   server: {
+    host: true,
     port: 5173,
+    strictPort: true,
     // Cursor Cloud / forwarded dev URLs use dynamic *.cursorvm.com hostnames
-    allowedHosts: ['.cursorvm.com', 'localhost', '127.0.0.1'],
+    allowedHosts: true,
     proxy: {
       '/api': {
         target: 'http://localhost:3001',
