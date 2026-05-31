@@ -8,13 +8,19 @@ import * as QRCode from 'qrcode';
 @Injectable()
 export class ReferenceService {
   private counters = new Map<string, number>();
+  /**
+   * Runtime sequences start above this base so they never collide with the
+   * deterministic seed dataset (whose sequences are well below 900000).
+   */
+  private static readonly RUNTIME_BASE = 900000;
 
   /**
-   * Format: CDSCO/<TYPE>/<YEAR>/<SEQ6>  e.g. CDSCO/ND/2026/000123
+   * Format: CDSCO/<TYPE>/<YEAR>/<SEQ6>  e.g. CDSCO/ND/2026/900123
    */
   generate(typeCode: string, year = new Date().getFullYear()): string {
     const key = `${typeCode}-${year}`;
-    const next = (this.counters.get(key) || 0) + 1;
+    const current = this.counters.get(key) ?? ReferenceService.RUNTIME_BASE;
+    const next = current + 1;
     this.counters.set(key, next);
     const seq = String(next).padStart(6, '0');
     return `CDSCO/${typeCode}/${year}/${seq}`;

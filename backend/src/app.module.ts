@@ -15,6 +15,9 @@ import { DocumentsModule } from './modules/documents/documents.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { RegistryModule } from './modules/registry/registry.module';
 import { ProductsModule } from './modules/products/products.module';
+import { PaymentsModule } from './modules/payments/payments.module';
+import { LicensingModule } from './modules/licensing/licensing.module';
+import { ApplicationsModule } from './modules/applications/applications.module';
 
 @Module({
   imports: [
@@ -31,6 +34,9 @@ import { ProductsModule } from './modules/products/products.module';
     AnalyticsModule,
     RegistryModule,
     ProductsModule,
+    PaymentsModule,
+    LicensingModule,
+    ApplicationsModule,
   ],
   controllers: [HealthController],
   providers: [

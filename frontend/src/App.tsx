@@ -13,6 +13,11 @@ import EntitiesPage from './pages/portal/EntitiesPage';
 import ProductsPage from './pages/portal/ProductsPage';
 import LaboratoriesPage from './pages/portal/LaboratoriesPage';
 import TechnicalPersonsPage from './pages/portal/TechnicalPersonsPage';
+import ApplicationsPage from './pages/portal/ApplicationsPage';
+import ApplicationDetailPage from './pages/portal/ApplicationDetailPage';
+import LicensesPage from './pages/portal/LicensesPage';
+import PaymentsPage from './pages/portal/PaymentsPage';
+import VerifyPage from './pages/public/VerifyPage';
 
 const pub = (el: JSX.Element) => <PublicLayout>{el}</PublicLayout>;
 const portal = (el: JSX.Element) => <PortalLayout>{el}</PortalLayout>;
@@ -22,7 +27,7 @@ export default function App() {
     <Routes>
       {/* Public */}
       <Route path="/" element={pub(<HomePage />)} />
-      <Route path="/verify" element={pub(<PlaceholderPage title="Verify Licence / Product" />)} />
+      <Route path="/verify" element={pub(<VerifyPage />)} />
       <Route path="/alerts" element={pub(<PlaceholderPage title="Drug & Cosmetic Alerts" />)} />
       <Route path="/registries" element={pub(<PlaceholderPage title="Public Registries" />)} />
       <Route path="/grievance" element={pub(<PlaceholderPage title="File a Grievance" />)} />
@@ -30,8 +35,9 @@ export default function App() {
 
       {/* Portal */}
       <Route path="/app" element={portal(<DashboardPage />)} />
-      <Route path="/app/applications" element={portal(<ModulePlaceholder title="Applications" />)} />
-      <Route path="/app/licenses" element={portal(<ModulePlaceholder title="Licences & Certificates" />)} />
+      <Route path="/app/applications" element={portal(<ApplicationsPage />)} />
+      <Route path="/app/applications/:id" element={portal(<ApplicationDetailPage />)} />
+      <Route path="/app/licenses" element={portal(<LicensesPage />)} />
       <Route path="/app/clinical-trials" element={portal(<ModulePlaceholder title="Clinical Trials" />)} />
       <Route path="/app/inspections" element={portal(<ModulePlaceholder title="Inspections" />)} />
       <Route path="/app/enforcement" element={portal(<ModulePlaceholder title="Enforcement" />)} />
@@ -39,7 +45,7 @@ export default function App() {
       <Route path="/app/laboratory" element={portal(<ModulePlaceholder title="Laboratory (LIMS)" />)} />
       <Route path="/app/supply-chain" element={portal(<ModulePlaceholder title="Supply Chain" />)} />
       <Route path="/app/returns" element={portal(<ModulePlaceholder title="Returns Filing" />)} />
-      <Route path="/app/payments" element={portal(<ModulePlaceholder title="Payments" />)} />
+      <Route path="/app/payments" element={portal(<PaymentsPage />)} />
       <Route path="/app/entities" element={portal(<EntitiesPage />)} />
       <Route path="/app/products" element={portal(<ProductsPage />)} />
       <Route path="/app/laboratories" element={portal(<LaboratoriesPage />)} />

@@ -142,3 +142,50 @@ export enum LabType {
   STATE = 'STATE',
   PRIVATE = 'PRIVATE',
 }
+
+/** Certificate / NOC types issued by DDRS. */
+export enum CertificateType {
+  COPP = 'COPP', // Certificate of Pharmaceutical Product
+  FSC = 'FSC', // Free Sales Certificate
+  MSC = 'MSC', // Market Standing Certificate
+  NCC = 'NCC', // Non-Conviction Certificate
+  WC = 'WC', // Written Confirmation
+  WHO_GMP = 'WHO_GMP', // WHO Good Manufacturing Practice
+  GMP = 'GMP',
+  NEUTRAL_CODE = 'NEUTRAL_CODE',
+  NOC_REIMPORT = 'NOC_REIMPORT',
+  NOC_DUAL_USE = 'NOC_DUAL_USE',
+  NOC_SHELF_LIFE = 'NOC_SHELF_LIFE',
+  NOC_EXPORT = 'NOC_EXPORT',
+  NOC_TEST = 'NOC_TEST',
+}
+
+export enum PaymentStatus {
+  PENDING = 'PENDING',
+  PAID = 'PAID',
+  FAILED = 'FAILED',
+  REFUNDED = 'REFUNDED',
+}
+
+export enum PaymentMode {
+  UPI = 'UPI',
+  CARD = 'CARD',
+  NETBANKING = 'NETBANKING',
+  WALLET = 'WALLET',
+  TREASURY = 'TREASURY',
+}
+
+export enum AllocationMode {
+  AUTO = 'AUTO',
+  RANDOM = 'RANDOM',
+  MANUAL = 'MANUAL',
+}
+
+export enum LicenseStatus {
+  ISSUED = 'ISSUED',
+  RENEWED = 'RENEWED',
+  SUSPENDED = 'SUSPENDED',
+  CANCELLED = 'CANCELLED',
+  SURRENDERED = 'SURRENDERED',
+  EXPIRED = 'EXPIRED',
+}
