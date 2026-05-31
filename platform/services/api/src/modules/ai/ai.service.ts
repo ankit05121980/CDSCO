@@ -163,17 +163,19 @@ export class AiService {
   async chat(user: AuthenticatedUser, message: string, sessionId?: string) {
     const sid = sessionId || `${user.userId}:default`;
     const retrieval = await this.rag.retrieve({ tenantId: user.tenantId, query: message, topK: 5 });
+    // Prior turns are tracked for multi-turn context but kept out of the
+    // retrieval grounding block so they don't pollute extractive answers.
+    const history = this.memory.history(sid, 6);
     this.memory.append(sid, { role: 'user', content: message });
-    const history = this.memory
-      .history(sid, 6)
-      .map((t) => `${t.role}: ${t.content}`)
-      .join('\n');
-    const ctx = `${retrieval.contextBlock}\n\nConversation so far:\n${history}`;
+    const messages = PROMPTS.chat(message, retrieval.contextBlock);
+    if (history.length > 0) {
+      messages.splice(1, 0, ...history.map((t) => ({ role: t.role, content: t.content })));
+    }
     const { result, requestId } = await this.invoke(
       user,
       'chat',
       message,
-      PROMPTS.chat(message, ctx),
+      messages,
       retrieval.citations,
       { sessionId: sid },
     );
