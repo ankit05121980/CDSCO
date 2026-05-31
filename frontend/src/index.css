@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: theme('colors.surface');
+  color: theme('colors.ink');
+  font-family: theme('fontFamily.sans');
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tricolour accent strip */
+.tricolour-strip {
+  height: 4px;
+  background: linear-gradient(
+    to right,
+    #ff9933 0%,
+    #ff9933 33.33%,
+    #ffffff 33.33%,
+    #ffffff 66.66%,
+    #138808 66.66%,
+    #138808 100%
+  );
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-offset-1;
+  }
+  .btn-primary {
+    @apply btn bg-navy text-white hover:bg-navy-800 focus:ring-navy-300;
+  }
+  .btn-saffron {
+    @apply btn bg-saffron text-white hover:bg-saffron-dark focus:ring-saffron-light;
+  }
+  .btn-outline {
+    @apply btn border border-navy-200 bg-white text-navy hover:bg-navy-50;
+  }
+  .card {
+    @apply rounded-xl border border-slate-200 bg-white shadow-card;
+  }
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+  .skip-link {
+    @apply absolute left-2 top-2 z-50 -translate-y-20 rounded bg-navy px-3 py-2 text-white focus:translate-y-0;
+  }
+}

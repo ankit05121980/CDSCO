@@ -1,0 +1,24 @@
+{
+  "name": "ddrs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DDRS — Digital Drugs Regulatory System (CDSCO). Enterprise-grade regulatory platform.",
+  "scripts": {
+    "dev": "concurrently -n backend,frontend -c blue,green \"pnpm --filter backend start:dev\" \"pnpm --filter frontend dev\"",
+    "build": "pnpm --filter backend build && pnpm --filter frontend build",
+    "seed": "pnpm --filter backend seed",
+    "start:backend": "pnpm --filter backend start:dev",
+    "start:frontend": "pnpm --filter frontend dev",
+    "lint": "pnpm --filter backend lint && pnpm --filter frontend lint"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.33.3",
+  "pnpm": {
+    "onlyBuiltDependencies": ["sqlite3", "esbuild", "@nestjs/core", "@scarf/scarf"]
+  }
+}
