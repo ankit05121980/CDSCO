@@ -1,8 +1,0 @@
-apiVersion: v2
-name: athena
-description: Athena — Enterprise AI Digital Transformation Platform
-type: application
-version: 1.0.0
-appVersion: '1.0.0'
-maintainers:
-  - name: Platform Engineering
