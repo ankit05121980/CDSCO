@@ -1,6 +1,8 @@
 import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import * as path from 'path';
 import { buildDataSourceOptions } from './config/data-source';
 import { HealthController } from './health.controller';
 import { CommonModule } from './common/common.module';
@@ -28,8 +30,19 @@ import { ReturnsModule } from './modules/returns/returns.module';
 import { GrievancesModule } from './modules/grievances/grievances.module';
 import { IntegrationsModule } from './modules/integrations/integrations.module';
 
+const productionStatic =
+  process.env.NODE_ENV === 'production'
+    ? [
+        ServeStaticModule.forRoot({
+          rootPath: path.join(__dirname, '..', '..', 'frontend', 'dist'),
+          exclude: ['/api*', '/health'],
+        }),
+      ]
+    : [];
+
 @Module({
   imports: [
+    ...productionStatic,
     TypeOrmModule.forRoot({
       ...buildDataSourceOptions(),
       autoLoadEntities: true,

@@ -1,0 +1,19 @@
+# https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: ddrs
+    runtime: docker
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DB_PATH
+        value: /var/data/ddrs.sqlite
+    disk:
+      name: ddrs-data
+      mountPath: /var/data
+      sizeGB: 1

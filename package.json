@@ -9,7 +9,8 @@
     "seed": "pnpm --filter backend seed",
     "start:backend": "pnpm --filter backend start:dev",
     "start:frontend": "pnpm --filter frontend dev",
-    "lint": "pnpm --filter backend lint && pnpm --filter frontend lint"
+    "lint": "pnpm --filter backend lint && pnpm --filter frontend lint",
+    "start:prod": "NODE_ENV=production node backend/dist/main.js"
   },
   "devDependencies": {
     "concurrently": "^9.1.0"
