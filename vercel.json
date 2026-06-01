@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "pnpm install --no-frozen-lockfile && pnpm --filter backend build && pnpm --filter frontend build",
+  "outputDirectory": "frontend/dist",
+  "framework": null,
+  "functions": {
+    "api/[...path].js": {
+      "memory": 1024,
+      "maxDuration": 30,
+      "includeFiles": "backend/dist/**"
+    }
+  },
+  "rewrites": [
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
+}

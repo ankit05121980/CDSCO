@@ -1,7 +1,11 @@
 import axios from 'axios';
 
+// Same-origin '/api' by default (single Vercel project / single service).
+// Set VITE_API_URL at build time to point the SPA at a separately-hosted API.
+const API_BASE = (import.meta as any).env?.VITE_API_URL || '/api';
+
 export const api = axios.create({
-  baseURL: '/api',
+  baseURL: API_BASE,
   headers: { 'Content-Type': 'application/json' },
 });
 

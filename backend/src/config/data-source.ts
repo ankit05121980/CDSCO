@@ -10,11 +10,27 @@ import * as path from 'path';
  * portable between SQLite and PostgreSQL.
  */
 export function buildDataSourceOptions(): DataSourceOptions {
-  const dbType = process.env.DB_TYPE || 'sqlite';
-
   // Load all entities via glob so both Nest and the standalone seed runner
   // see the same set.
   const entities = [path.join(__dirname, '..', '**', '*.entity.{ts,js}')];
+
+  // Schema sync can be disabled in production via DB_SYNCHRONIZE=false.
+  const synchronize = process.env.DB_SYNCHRONIZE !== 'false';
+
+  // Managed Postgres via a single connection string (Vercel Postgres / Neon /
+  // Supabase). This is the recommended setup for serverless deployments.
+  if (process.env.DATABASE_URL) {
+    return {
+      type: 'postgres',
+      url: process.env.DATABASE_URL,
+      ssl: process.env.PGSSL === 'false' ? false : { rejectUnauthorized: false },
+      entities,
+      synchronize,
+      logging: false,
+    };
+  }
+
+  const dbType = process.env.DB_TYPE || 'sqlite';
 
   if (dbType === 'postgres') {
     return {
@@ -24,8 +40,9 @@ export function buildDataSourceOptions(): DataSourceOptions {
       username: process.env.PGUSER || 'ddrs',
       password: process.env.PGPASSWORD || 'ddrs',
       database: process.env.PGDATABASE || 'ddrs',
+      ssl: process.env.PGSSL === 'true' ? { rejectUnauthorized: false } : false,
       entities,
-      synchronize: true,
+      synchronize,
       logging: false,
     };
   }
@@ -34,7 +51,7 @@ export function buildDataSourceOptions(): DataSourceOptions {
     type: 'sqlite',
     database: process.env.DB_PATH || path.join(process.cwd(), 'ddrs.sqlite'),
     entities,
-    synchronize: true,
+    synchronize,
     logging: false,
   };
 }
