@@ -2,7 +2,6 @@ import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as path from 'path';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -32,17 +31,6 @@ async function bootstrap() {
     customSiteTitle: 'DDRS API Docs',
     swaggerOptions: { persistAuthorization: true },
   });
-
-  const staticRoot =
-    process.env.STATIC_ROOT || path.join(process.cwd(), '..', 'frontend', 'dist');
-  if (process.env.NODE_ENV === 'production') {
-    const server = app.getHttpAdapter().getInstance();
-    const indexHtml = path.join(staticRoot, 'index.html');
-    server.get(/^(?!\/api)(?!\/health).*/, (req, res, next) => {
-      if (req.method !== 'GET' && req.method !== 'HEAD') return next();
-      res.sendFile(indexHtml);
-    });
-  }
 
   const port = parseInt(process.env.PORT || '3001', 10);
   await app.listen(port, '0.0.0.0');

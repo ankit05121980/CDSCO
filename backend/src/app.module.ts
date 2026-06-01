@@ -26,7 +26,9 @@ const serveStatic =
     ? [
         ServeStaticModule.forRoot({
           rootPath: STATIC_ROOT,
-          exclude: ['/api', '/api/(.*)', '/health'],
+          exclude: ['/api*', '/health'],
+          serveStaticOptions: { index: false },
+          renderPath: '/*',
         }),
       ]
     : [];
