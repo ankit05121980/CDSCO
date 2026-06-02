@@ -13,3 +13,6 @@ coverage/
 .cache/
 *.tsbuildinfo
 uploads/
+
+# Ephemeral screenshots from local/CI smoke tests (not part of the product)
+ddrs-*.png
