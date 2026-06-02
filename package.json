@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "concurrently -n backend,frontend -c blue,green \"pnpm --filter backend start:dev\" \"pnpm --filter frontend dev\"",
     "build": "pnpm --filter backend build && pnpm --filter frontend build",
+    "vercel-build": "pnpm --filter backend build && node scripts/copy-wasm.js && pnpm --filter frontend build",
     "seed": "pnpm --filter backend seed",
     "start": "pnpm --filter backend start:prod",
     "start:prod": "pnpm --filter backend start:prod",
