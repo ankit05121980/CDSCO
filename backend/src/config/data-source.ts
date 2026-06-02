@@ -46,10 +46,18 @@ export function buildDataSourceOptions(): DataSourceOptions {
       entities,
       synchronize: true,
       logging: false,
-      // Resolve the sql.js WASM from the installed package (also hints the
-      // serverless bundler to include the .wasm file).
+      // Resolve the sql.js WASM. In serverless bundles a copy is placed next to
+      // the compiled output (backend/dist/sql-wasm.wasm) during the build; we
+      // prefer that, then fall back to the installed package.
       sqlJsConfig: {
         locateFile: (file: string) => {
+          const fs = require('fs');
+          const local = path.join(__dirname, '..', file); // backend/dist/<file>
+          try {
+            if (fs.existsSync(local)) return local;
+          } catch {
+            /* ignore */
+          }
           try {
             return require.resolve('sql.js/dist/' + file);
           } catch {
