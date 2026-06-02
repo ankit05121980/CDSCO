@@ -5,13 +5,14 @@
   "buildCommand": "pnpm run vercel-build",
   "outputDirectory": "dist",
   "functions": {
-    "api/[...path].js": {
+    "api/index.js": {
       "memory": 1024,
       "maxDuration": 60,
       "includeFiles": "backend/dist/**"
     }
   },
   "rewrites": [
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    { "source": "/api/(.*)", "destination": "/api" },
+    { "source": "/((?!api).*)", "destination": "/index.html" }
   ]
 }
