@@ -1,13 +1,20 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const here = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias: { '@': path.resolve(__dirname, './src') },
+    alias: { '@': path.resolve(here, './src') },
   },
   build: {
+    // Write the production build to the repository-root `dist` (absolute path,
+    // independent of the current working directory) so Vercel finds it reliably.
+    outDir: path.resolve(here, '..', 'dist'),
+    emptyOutDir: true,
     chunkSizeWarningLimit: 1500,
     rollupOptions: {
       output: {
