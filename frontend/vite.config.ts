@@ -7,6 +7,18 @@ export default defineConfig({
   resolve: {
     alias: { '@': path.resolve(__dirname, './src') },
   },
+  build: {
+    chunkSizeWarningLimit: 1500,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router-dom'],
+          charts: ['recharts'],
+          query: ['@tanstack/react-query', 'axios'],
+        },
+      },
+    },
+  },
   server: {
     port: 5173,
     // Cursor Cloud / forwarded dev URLs use dynamic *.cursorvm.com hostnames
