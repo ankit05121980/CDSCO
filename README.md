@@ -72,9 +72,9 @@ docker compose up --build           # http://localhost:3001
 # Option C — Docker + PostgreSQL
 docker compose --profile postgres up --build
 
-# Option D — Vercel (SPA + serverless API, PostgreSQL)
-#   Import the repo in Vercel; set DATABASE_URL + JWT_SECRET + DB_SYNCHRONIZE=false.
-#   See docs/DEPLOYMENT_VERCEL.md
+# Option D — Vercel (ZERO CONFIG): import the repo and click Deploy.
+#   Uses a built-in in-memory DB that auto-seeds demo data on startup.
+#   (Optional) set DATABASE_URL for persistent PostgreSQL. See docs/DEPLOYMENT_VERCEL.md
 ```
 
 Full guides: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) ·

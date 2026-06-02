@@ -6,16 +6,34 @@ DDRS is configured to deploy on **Vercel** as a single project:
 - the **NestJS API** runs as a **serverless function** (`api/[...path].js`) that
   handles all `/api/*` requests.
 
-Because serverless filesystems are ephemeral, the API uses **PostgreSQL** (not
-SQLite) in this deployment — via a single `DATABASE_URL` connection string
-(Vercel Postgres, Neon, or Supabase all work).
-
 > Files involved: `vercel.json`, `api/[...path].js`, `backend/src/serverless.ts`,
 > `backend/src/bootstrap.ts`, `.vercelignore`.
 
 ---
 
-## A. One-time database setup
+## Zero-config deploy (recommended for demo) — NOTHING to set up
+
+The app ships with a **built-in, in-memory database** (pure-JS `sql.js`, no
+native build, no external DB). On Vercel it is selected automatically and the
+app **auto-seeds demo data on startup** (~0.4 s), including all demo logins.
+
+**Steps:**
+1. Go to https://vercel.com/new and **Import** the repo `ankit05121980/CDSCO`.
+2. Click **Deploy**. That's it — no environment variables required.
+3. Open the URL → log in with `dcgi@cdsco.demo` / `Ddrs@2026`
+   (any account in `docs/ROLES.md`).
+
+Notes / trade-offs of the zero-config mode:
+- Data is **in-memory and per-instance** (ephemeral): each serverless instance
+  re-seeds compact demo data on cold start, and writes live only for that warm
+  instance. Perfect for demos/evaluation.
+- For **persistent, full-scale** data, add PostgreSQL (next section).
+
+---
+
+## Persistent deployment with PostgreSQL (optional, for production)
+
+### A. One-time database setup
 
 1. Create a PostgreSQL database and copy its connection string, e.g.
    - **Vercel Postgres** (Storage tab → create), or
@@ -55,6 +73,9 @@ SQLite) in this deployment — via a single `DATABASE_URL` connection string
    - Swagger: `https://<project>.vercel.app/api/docs`
 
 Login with a demo account (e.g. `dcgi@cdsco.demo` / `Ddrs@2026`).
+
+When `DATABASE_URL` is set, DDRS uses PostgreSQL instead of the in-memory
+database — overriding the zero-config mode.
 
 ## C. Notes & tuning (serverless)
 

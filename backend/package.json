@@ -44,6 +44,7 @@
     "qrcode": "^1.5.4",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
+    "sql.js": "^1.14.1",
     "sqlite3": "^5.1.7",
     "typeorm": "^0.3.20",
     "uuid": "^11.0.5"
@@ -60,6 +61,7 @@
     "@types/passport-jwt": "^4.0.1",
     "@types/pg": "^8.20.0",
     "@types/qrcode": "^1.5.5",
+    "@types/sql.js": "^1.4.11",
     "@typescript-eslint/eslint-plugin": "^8.20.0",
     "@typescript-eslint/parser": "^8.20.0",
     "eslint": "^9.18.0",

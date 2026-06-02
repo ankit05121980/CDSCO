@@ -30,6 +30,36 @@ export function buildDataSourceOptions(): DataSourceOptions {
     };
   }
 
+  // Zero-config in-memory database (pure-JS sql.js — no native build, no
+  // external DB). Auto-selected on Vercel (or any serverless) when no
+  // DATABASE_URL is provided, so the app deploys with a single click and
+  // seeds demo data on startup. Data is per-instance and ephemeral.
+  const driver =
+    process.env.DB_DRIVER ||
+    (process.env.VERCEL || process.env.NOW_REGION ? 'sqljs' : 'sqlite');
+
+  if (driver === 'sqljs') {
+    return {
+      type: 'sqljs',
+      autoSave: false,
+      location: undefined,
+      entities,
+      synchronize: true,
+      logging: false,
+      // Resolve the sql.js WASM from the installed package (also hints the
+      // serverless bundler to include the .wasm file).
+      sqlJsConfig: {
+        locateFile: (file: string) => {
+          try {
+            return require.resolve('sql.js/dist/' + file);
+          } catch {
+            return file;
+          }
+        },
+      },
+    } as DataSourceOptions;
+  }
+
   const dbType = process.env.DB_TYPE || 'sqlite';
 
   if (dbType === 'postgres') {
